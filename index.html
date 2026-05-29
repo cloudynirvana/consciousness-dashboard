@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What Is Alive — Consciousness Engineering Dashboard</title>
+  <meta name="description" content="A comprehensive visualization of the layered architecture of aliveness, neural death surges, Human Brain Zero (HB₀), Integrated Information Theory (IIT), and Project Confluence." />
+
+  <!-- Open Graph / Social -->
+  <meta property="og:title" content="What Is Alive — Consciousness Engineering Dashboard" />
+  <meta property="og:description" content="Interactive visualization of the layered architecture of aliveness: 6 neural layers, death surges, HB₀ threshold, IIT Φ-theory, and Project Confluence." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://repository-images.githubusercontent.com/placeholder" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Favicon (neural node SVG) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23040912' stroke='%23f2c94c' stroke-width='6'/><circle cx='50' cy='50' r='15' fill='%23f2c94c'/><circle cx='25' cy='30' r='6' fill='%23bb86fc'/><circle cx='75' cy='30' r='6' fill='%2303dac6'/><circle cx='35' cy='75' r='6' fill='%23ffb547'/><circle cx='65' cy='75' r='6' fill='%236fcf97'/><line x1='50' y1='50' x2='25' y2='30' stroke='%23f2c94c40' stroke-width='2'/><line x1='50' y1='50' x2='75' y2='30' stroke='%23f2c94c40' stroke-width='2'/><line x1='50' y1='50' x2='35' y2='75' stroke='%23f2c94c40' stroke-width='2'/><line x1='50' y1='50' x2='65' y2='75' stroke='%23f2c94c40' stroke-width='2'/></svg>" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+
+  <!-- React + ReactDOM + Babel -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Recharts -->
+  <script crossorigin src="https://unpkg.com/recharts@2.12.7/umd/Recharts.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body, #root { height: 100%; }
+    body { background: #040912; overflow-x: hidden; }
+
+    @keyframes signal {
+      0%   { stroke-dashoffset: 50; }
+      100% { stroke-dashoffset: -50; }
+    }
+    @keyframes nodePulse {
+      0%, 100% { opacity: 0.6; }
+      50%      { opacity: 1; }
+    }
+    @keyframes scanDrift {
+      0%   { transform: translateY(-80px); opacity: 0; }
+      20%  { opacity: 1; }
+      80%  { opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+    @keyframes breathe {
+      0%, 100% { opacity: 0.4; }
+      50%      { opacity: 0.9; }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50%      { background-position: 100% 50%; }
+    }
+    @keyframes glowPulse {
+      0%, 100% { box-shadow: 0 0 8px rgba(242, 201, 76, 0.08); }
+      50%      { box-shadow: 0 0 20px rgba(242, 201, 76, 0.15); }
+    }
+
+    .hover-row { transition: background 0.15s; }
+    .hover-row:hover { background: #0d1828 !important; }
+
+    .tab-btn {
+      transition: all 0.18s; cursor: pointer; border: none; outline: none;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+    .tab-btn:hover { background: #0e1728 !important; }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-thumb { background: rgba(242,201,76,0.18); border-radius: 2px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+
+    .layer-card { transition: all 0.25s ease; }
+    .layer-card:hover { transform: translateX(2px); }
+
+    .stat-card {
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-card::after {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(135deg, transparent 60%, rgba(255,255,255,0.02));
+      pointer-events: none;
+    }
+    .stat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.3);
+    }
+
+    .equation-block {
+      background: linear-gradient(135deg, rgba(187,134,252,0.06) 0%, rgba(242,201,76,0.04) 100%);
+      border: 1px solid rgba(187,134,252,0.2);
+      border-radius: 8px;
+      padding: 20px 24px;
+      text-align: center;
+      font-family: 'Cormorant Garamond', serif;
+      animation: glowPulse 4s ease-in-out infinite;
+    }
+
+    .phase-pill {
+      display: inline-block;
+      font-size: 8px;
+      font-family: 'IBM Plex Mono', monospace;
+      padding: 2px 8px;
+      border-radius: 2px;
+      letter-spacing: 0.15em;
+      white-space: nowrap;
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 700px) {
+      .stat-grid-3 { grid-template-columns: 1fr !important; }
+      .stat-grid-4 { grid-template-columns: 1fr 1fr !important; }
+      .stat-grid-2 { grid-template-columns: 1fr !important; }
+      .header-wrap { flex-direction: column !important; align-items: flex-start !important; }
+      .header-right { text-align: left !important; }
+    }
+
+    /* Particle canvas */
+    #particle-canvas {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0; opacity: 0.35;
+    }
+    #root { position: relative; z-index: 1; }
+  </style>
+</head>
+<body>
+  <canvas id="particle-canvas"></canvas>
+  <div id="root"></div>
+
+  <!-- Ambient particles -->
+  <script>
+    (function() {
+      const canvas = document.getElementById('particle-canvas');
+      const ctx = canvas.getContext('2d');
+      let particles = [];
+      const COLORS = ['#f2c94c', '#bb86fc', '#03dac6', '#56aef0', '#ffb547'];
+      const COUNT = 40;
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      for (let i = 0; i < COUNT; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 1.5 + 0.5,
+          dx: (Math.random() - 0.5) * 0.15,
+          dy: (Math.random() - 0.5) * 0.1,
+          color: COLORS[Math.floor(Math.random() * COLORS.length)],
+          alpha: Math.random() * 0.4 + 0.1,
+        });
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (const p of particles) {
+          p.x += p.dx; p.y += p.dy;
+          if (p.x < 0) p.x = canvas.width;
+          if (p.x > canvas.width) p.x = 0;
+          if (p.y < 0) p.y = canvas.height;
+          if (p.y > canvas.height) p.y = 0;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = p.alpha;
+          ctx.fill();
+        }
+        // Draw faint connections between nearby particles
+        ctx.globalAlpha = 0.06;
+        ctx.strokeStyle = '#f2c94c';
+        ctx.lineWidth = 0.5;
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            if (dist < 120) {
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.stroke();
+            }
+          }
+        }
+        ctx.globalAlpha = 1;
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+  </script>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+    const {
+      AreaChart, Area, BarChart, Bar, XAxis, YAxis,
+      CartesianGrid, Tooltip, ResponsiveContainer, Cell, Legend,
+      RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
+      LineChart, Line, ReferenceLine
+    } = Recharts;
+
+    // ── Palette ────────────────────────────────────────────────────────────────
+
+    const P = {
+      bg: "#040912", surface: "#080f1e", surface2: "#0d1826",
+      gold: "#f2c94c", blue: "#56aef0", purple: "#bb86fc",
+      teal: "#03dac6", red: "#cf6679", amber: "#ffb547",
+      green: "#6fcf97", text: "#a8c4d8", textDim: "#3a5870",
+      textBright: "#ddeef6",
+    };
+
+    // ── Data ───────────────────────────────────────────────────────────────────
+
+    const LAYERS = [
+      {
+        id: "conscious", label: "Phenomenal Consciousness",
+        sublabel: "Subjective experience — the 'what it is like'",
+        color: P.purple, msec: 10000,
+        human: "15–30 sec", phi: 3.8,
+        note: "First to vanish. The 'lights out' moment. Yet its neural substrate persists.",
+        mechanism: "Global neuronal workspace collapse / IIT Φ drop below threshold",
+      },
+      {
+        id: "gamma", label: "Gamma Oscillations",
+        sublabel: "High-frequency neural synchrony",
+        color: P.gold, msec: 90000,
+        human: "30–90 sec", phi: "?↑",
+        note: "Paradoxically SURGES at death — exceeds waking levels. TPO junction activation.",
+        mechanism: "ATP depletion → NMDA disinhibition → hypersynchronous discharge",
+      },
+      {
+        id: "eeg", label: "Organized EEG Coherence",
+        sublabel: "Structured, coordinated brain wave activity",
+        color: P.blue, msec: 300000,
+        human: "2–5 min", phi: 0.8,
+        note: "The clinical definition of brain death. But three deeper layers still persist.",
+        mechanism: "Isoelectric transition — cortical spreading depolarization",
+      },
+      {
+        id: "metabolic", label: "Synaptic / Metabolic Activity",
+        sublabel: "ATP-dependent vesicle release and receptor function",
+        color: P.amber, msec: 900000,
+        human: "10–20 min", phi: 0.2,
+        note: "OrganEx (Yale, 2022): cellular signaling restored in pig organs 1hr post-arrest.",
+        mechanism: "Mitochondrial failure → ATP depletion → pump arrest",
+      },
+      {
+        id: "structural", label: "Cellular Structural Integrity",
+        sublabel: "Physical neuron and glial architecture",
+        color: P.teal, msec: 86400000,
+        human: "Hours–days", phi: 0,
+        note: "The physical scaffold of the connectome. Degrades slowly via autolysis.",
+        mechanism: "Lysosomal release → autolysis → apoptotic/necrotic cascade",
+      },
+      {
+        id: "connectome", label: "Encoded Connectome",
+        sublabel: "Synaptic weight matrix — memory, identity, personality",
+        color: P.green, msec: null,
+        human: "Days → indefinite?", phi: "∞?",
+        note: "Information encoded in synaptic weights. Physically: unitarity suggests it never truly disappears.",
+        mechanism: "Protein degradation is the limit — cryopreservation research targets this layer",
+      },
+    ];
+
+    const DYING_SURGE = [
+      { t: -60, power: 44 }, { t: -30, power: 46 }, { t: 0, power: 43 },
+      { t: 20, power: 40 }, { t: 40, power: 55 }, { t: 60, power: 78 },
+      { t: 80, power: 96 }, { t: 100, power: 91 }, { t: 120, power: 72 },
+      { t: 150, power: 48 }, { t: 180, power: 22 }, { t: 210, power: 8 },
+      { t: 240, power: 2 }, { t: 300, power: 1 },
+    ];
+
+    const SURGE_ORIGINS = [
+      { region: "Temporo-parieto-occipital (TPO) Junction", role: "Posterior 'hot zone' — visuospatial processing, dreaming, out-of-body experiences", accent: P.purple },
+      { region: "Prefrontal-Parietal Network", role: "Global neuronal workspace — normally associated with conscious access", accent: P.blue },
+      { region: "Anterior-Posterior Connectivity", role: "Directed information flow between brain regions — signature of integrated processing", accent: P.gold },
+    ];
+
+    const PHI_STATES = [
+      { state: "Anesthesia", phi: 0.6, color: P.blue },
+      { state: "Deep Sleep", phi: 0.9, color: `${P.blue}bb` },
+      { state: "HB₀ Target", phi: 0.3, color: P.purple },
+      { state: "REM", phi: 2.6, color: P.amber },
+      { state: "Waking", phi: 3.8, color: P.gold },
+      { state: "Death Surge", phi: 5.1, color: `${P.red}cc` },
+    ];
+
+    const CONSCIOUSNESS_SPECTRUM = [
+      { state: "Brain Death", phi: 0.0, color: P.red, zone: "irreversible" },
+      { state: "Deep Coma", phi: 0.15, color: P.red, zone: "irreversible" },
+      { state: "OrganEx Zone", phi: 0.25, color: P.amber, zone: "experimental" },
+      { state: "HB₀", phi: 0.35, color: P.purple, zone: "threshold" },
+      { state: "Vegetative", phi: 0.5, color: P.blue, zone: "sub-conscious" },
+      { state: "Anesthesia", phi: 0.6, color: P.blue, zone: "sub-conscious" },
+      { state: "Deep Sleep", phi: 0.9, color: P.teal, zone: "sub-conscious" },
+      { state: "REM Dream", phi: 2.6, color: P.amber, zone: "conscious" },
+      { state: "Waking", phi: 3.8, color: P.gold, zone: "conscious" },
+      { state: "Death Surge", phi: 5.1, color: P.red, zone: "anomalous" },
+    ];
+
+    const TERMINAL_LUCIDITY = [
+      { condition: "Advanced Alzheimer's", recovery: "Full conversational clarity — recognized family members, recalled memories", timing: "Hours before death", evidence: "Nahm et al., 2012; Batthyány, 2023" },
+      { condition: "Chronic Schizophrenia", recovery: "Complete cognitive normalization — coherent speech returned", timing: "Days before death", evidence: "Turetskaia 1955; Nahm & Greyson 2009" },
+      { condition: "Massive Stroke Damage", recovery: "Return of speech and voluntary movement", timing: "Hours before death", evidence: "Clinical case series — multiple hospitals" },
+    ];
+
+    const HB0_TRAJECTORY = [
+      { t: 0, phi: 3.8, label: "Waking" },
+      { t: 1, phi: 3.2 }, { t: 2, phi: 2.4 },
+      { t: 3, phi: 1.2 }, { t: 4, phi: 0.6 },
+      { t: 5, phi: 0.35, label: "HB₀ Threshold" },
+      { t: 6, phi: 0.2 }, { t: 7, phi: 0.12 },
+      { t: 8, phi: 0.08 }, { t: 9, phi: 0.04 },
+      { t: 10, phi: 0.01, label: "Sub-HB₀" },
+    ];
+
+    const PHI_VECTOR_DIMS = [
+      { dim: "Φ₁", name: "Metabolic Entropy", observable: "Mitochondrial coupling efficiency; OrganEx restoration metrics", icon: "⚡" },
+      { dim: "Φ₂", name: "Signal Diversity", observable: "oncRNA expression diversity (TCGA data)", icon: "📊" },
+      { dim: "Φ₃", name: "Adaptive Capacity", observable: "EMT switch state (oncRNA-controlled bistable parameter)", icon: "🔄" },
+      { dim: "Φ₄", name: "Structural Coherence", observable: "Connectome graph density; cellular integrity", icon: "🏗" },
+      { dim: "Φ₅", name: "Information Integration", observable: "EEG coherence; gamma oscillation synchrony", icon: "🧠" },
+    ];
+
+    const RADAR_DATA = [
+      { dim: "Φ₁", healthy: 0.85, cancer: 0.45, aged: 0.55, hb0: 0.2 },
+      { dim: "Φ₂", healthy: 0.9, cancer: 0.3, aged: 0.65, hb0: 0.15 },
+      { dim: "Φ₃", healthy: 0.88, cancer: 0.25, aged: 0.5, hb0: 0.18 },
+      { dim: "Φ₄", healthy: 0.92, cancer: 0.6, aged: 0.4, hb0: 0.12 },
+      { dim: "Φ₅", healthy: 0.95, cancer: 0.7, aged: 0.6, hb0: 0.1 },
+    ];
+
+    const CONFLUENCE_MAP = [
+      { oncrna: "HB₀ — minimum viable Φ state", phi: "Φ-vector lower bound", tag: "NEW TARGET", accent: P.purple },
+      { oncrna: "Gamma surge pattern (dying EEG)", phi: "Φ₂ Signal Diversity spike", tag: "OBSERVABLE", accent: P.gold },
+      { oncrna: "Connectome decay rate (post-mortem)", phi: "K(Φ) temporal derivative", tag: "PHASE 2", accent: P.teal },
+      { oncrna: "Metabolic restoration (OrganEx)", phi: "Φ₁ Metabolic Entropy reversal", tag: "PROTOCOL", accent: P.amber },
+      { oncrna: "Consciousness re-emergence threshold", phi: "Adaptive controller target state", tag: "CLINICAL", accent: P.green },
+    ];
+
+    const THREE_CONDITIONS = [
+      {
+        name: "Cancer", icon: "◉", color: P.red,
+        mechanism: "Premature Φ-collapse in localized tissue",
+        phiEffect: "K(Φ_cancer) < K(Φ_healthy) — stereotyped, compressible attractor states",
+        target: "Sustain complexity gradient between host and tumour",
+        evidence: "90.9% ML classification of oncRNA barcodes confirms low K(Φ)",
+      },
+      {
+        name: "Aging", icon: "◷", color: P.amber,
+        mechanism: "Slow-motion erosion of Layers 4–5",
+        phiEffect: "Monotonic Φ-trajectory decline across decades",
+        target: "Multi-dimensional Φ-vector restoration",
+        evidence: "Mitochondrial dysfunction (Φ₁), proteotoxic stress (Φ₄)",
+      },
+      {
+        name: "Host Death", icon: "◈", color: P.purple,
+        mechanism: "Sequential layer disaggregation, not annihilation",
+        phiEffect: "Rapid Φ-collapse with residual Layer 5–6 persistence",
+        target: "Preserve connectome fidelity above HB₀ reconstruction threshold",
+        evidence: "OrganEx: cellular signaling restored 1hr post-arrest",
+      },
+    ];
+
+    const OPEN_QUESTIONS = [
+      { q: "What is the empirical value of Φ_HB₀ for humans?", priority: "CRITICAL", approach: "Anesthesia EEG + IIT computation", color: P.red },
+      { q: "Does the death surge represent genuine high-Φ consciousness?", priority: "HIGH", approach: "Correlate TPO gamma data with NDE reports", color: P.gold },
+      { q: "Can K(Φ) compression ratio distinguish cancer from inflammation?", priority: "HIGH", approach: "TCGA + GTEx comparative analysis", color: P.gold },
+      { q: "What is the proteolytic decay constant of connectome fidelity?", priority: "HIGH", approach: "Post-mortem proteomics datasets", color: P.gold },
+      { q: "Does IIT Φ correlate with the Φ-vector norm in biological systems?", priority: "MEDIUM", approach: "Synthetic ODE simulation vs. IIT calculation", color: P.blue },
+      { q: "Is dΦ/dt measurable from blood oncRNA alone?", priority: "MEDIUM", approach: "Longitudinal I-SPY 2 time-series analysis", color: P.blue },
+      { q: "Does terminal lucidity reflect a transient K(Φ) reversal?", priority: "SPECULATIVE", approach: "Retrospective EEG analysis if pre-death monitoring exists", color: P.purple },
+      { q: "Can HB₀ be reached from below (sub-HB₀ states)?", priority: "SPECULATIVE", approach: "OrganEx extension + Φ-trajectory reversal modelling", color: P.purple },
+    ];
+
+    const PHASES = [
+      {
+        id: 1, label: "Measurement & Formalisation", timeline: "0–3 Months", color: P.gold, status: "IN PROGRESS",
+        items: [
+          "K(Φ) compression test on TCGA small-RNA-seq",
+          "EMT bistable switch parameterization in ODE",
+          "Φ-lower-bound estimation (empirical HB₀)",
+          "phi-validator oncRNA hook for Φ₂",
+          "C_cont metric implementation via EKF pipeline",
+        ]
+      },
+      {
+        id: 2, label: "Real Data & Biological Validation", timeline: "3–9 Months", color: P.teal, status: "PLANNED",
+        items: [
+          "TCGA small-RNA-seq — 32 cancer types",
+          "I-SPY 2 trial data — longitudinal blood oncRNA",
+          "Moffitt / Gatenby outreach — adaptive therapy",
+          "EEG death-surge parameterisation (Φ₅ dynamics)",
+          "HB₀ candidate identification from anesthesia data",
+        ]
+      },
+      {
+        id: 3, label: "Substrate-Independent Complexity Restoration", timeline: "Post-Phase 2", color: P.purple, status: "CONCEPTUAL",
+        items: [
+          "Connectome preservation metric",
+          "Artificial substrate Φ modelling",
+          "Unified terminal illness protocol",
+        ]
+      },
+    ];
+
+    // ── Shared Components ──────────────────────────────────────────────────────
+
+    const Tip = ({ active, payload, label: lbl, unit = "" }) => {
+      if (!active || !payload?.length) return null;
+      return (
+        <div style={{
+          background: P.surface2, border: `1px solid ${P.gold}30`,
+          padding: "8px 12px", borderRadius: 4,
+          fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: P.text
+        }}>
+          <div style={{ color: P.gold, marginBottom: 4 }}>{lbl}</div>
+          {payload.map((p, i) => (
+            <div key={i}>{p.name}: <span style={{ color: p.color || P.gold }}>{p.value}{unit}</span></div>
+          ))}
+        </div>
+      );
+    };
+
+    const Card = ({ title, accent = P.gold, children, style = {} }) => (
+      <div style={{
+        background: P.surface, border: `1px solid ${accent}20`,
+        borderLeft: `3px solid ${accent}`, borderRadius: 8,
+        padding: "18px 20px", marginBottom: 12,
+        animation: "fadeIn 0.35s ease-out", ...style
+      }}>
+        {title && (
+          <div style={{
+            fontFamily: "'IBM Plex Mono', monospace", fontSize: 9,
+            letterSpacing: "0.25em", color: accent,
+            marginBottom: 12, textTransform: "uppercase"
+          }}>{title}</div>
+        )}
+        {children}
+      </div>
+    );
+
+    const Tag = ({ label, accent = P.gold }) => (
+      <span className="phase-pill" style={{
+        background: accent, color: P.bg,
+      }}>{label}</span>
+    );
+
+    // ── Neural Network SVG header ──────────────────────────────────────────────
+
+    const NeuralNet = () => {
+      const nodes = [
+        { x: 80, y: 55 }, { x: 50, y: 30 }, { x: 120, y: 28 }, { x: 150, y: 58 },
+        { x: 130, y: 88 }, { x: 75, y: 92 }, { x: 40, y: 70 }, { x: 100, y: 55 },
+        { x: 30, y: 45 }, { x: 165, y: 38 }, { x: 160, y: 80 }, { x: 55, y: 110 },
+      ];
+      const edges = [
+        [0,1],[0,2],[0,3],[0,5],[0,7],[1,2],[1,8],[2,9],[3,9],[3,10],
+        [4,5],[4,10],[5,6],[6,8],[7,0],[7,4],[11,5],[11,6],
+      ];
+      return (
+        <svg width="200" height="130" viewBox="20 15 160 110" style={{ opacity: 0.7 }}>
+          {edges.map(([a, b], i) => (
+            <g key={i}>
+              <line
+                x1={nodes[a].x} y1={nodes[a].y}
+                x2={nodes[b].x} y2={nodes[b].y}
+                stroke={P.gold} strokeWidth="0.6" strokeOpacity="0.2"
+              />
+              <line
+                x1={nodes[a].x} y1={nodes[a].y}
+                x2={nodes[b].x} y2={nodes[b].y}
+                stroke={P.gold} strokeWidth="1.5" strokeOpacity="0.8"
+                strokeDasharray="3 40"
+                style={{ animation: `signal ${2.5 + (i % 5) * 0.4}s linear infinite`, animationDelay: `${(i * 0.3) % 2}s` }}
+              />
+            </g>
+          ))}
+          {nodes.map((n, i) => (
+            <circle key={i} cx={n.x} cy={n.y} r={i === 7 ? 5 : 3.5}
+              fill={i === 7 ? P.gold : `${P.gold}50`}
+              stroke={P.gold} strokeWidth="0.8"
+              style={{ animation: `nodePulse ${2 + (i % 4) * 0.5}s ease-in-out infinite`, animationDelay: `${(i * 0.25) % 2}s` }}
+            />
+          ))}
+        </svg>
+      );
+    };
+
+    // ── Layer Stack ────────────────────────────────────────────────────────────
+
+    const LayerStack = ({ active, onSelect }) => (
+      <div>
+        {LAYERS.map((layer, i) => (
+          <div key={layer.id}
+            className="layer-card"
+            onClick={() => onSelect(i === active ? null : i)}
+            style={{
+              display: "flex", alignItems: "stretch",
+              marginBottom: 6, cursor: "pointer",
+              transition: "all 0.2s",
+              opacity: active !== null && active !== i ? 0.5 : 1,
+            }}
+          >
+            <div style={{
+              width: 24, display: "flex", alignItems: "center",
+              justifyContent: "center", flexShrink: 0,
+              fontSize: 9, color: P.textDim,
+              fontFamily: "'IBM Plex Mono', monospace",
+            }}>{i + 1}</div>
+
+            <div style={{
+              width: 4, borderRadius: 2, flexShrink: 0,
+              background: layer.color, marginRight: 12,
+              opacity: 0.8,
+            }} />
+
+            <div style={{
+              flex: 1, background: active === i ? `${layer.color}10` : P.surface,
+              border: `1px solid ${active === i ? layer.color : layer.color + "20"}`,
+              borderRadius: 6, padding: "10px 14px",
+              transition: "all 0.2s",
+            }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                <div>
+                  <div style={{ fontSize: 12, color: P.textBright, fontWeight: 600, marginBottom: 2 }}>
+                    {layer.label}
+                  </div>
+                  <div style={{ fontSize: 10, color: P.textDim }}>{layer.sublabel}</div>
+                </div>
+                <div style={{ textAlign: "right", flexShrink: 0, marginLeft: 12 }}>
+                  <div style={{ fontSize: 11, color: layer.color, fontFamily: "'IBM Plex Mono', monospace" }}>
+                    {layer.human}
+                  </div>
+                  <div style={{ fontSize: 9, color: P.textDim, letterSpacing: "0.1em" }}>
+                    Φ ≈ {layer.phi}
+                  </div>
+                </div>
+              </div>
+              {active === i && (
+                <div style={{ marginTop: 10, paddingTop: 10, borderTop: `1px solid ${layer.color}20`, animation: "fadeIn 0.25s ease-out" }}>
+                  <div style={{ fontSize: 11, color: P.text, lineHeight: 1.7, marginBottom: 6 }}>{layer.note}</div>
+                  <div style={{ fontSize: 10, color: P.textDim, lineHeight: 1.6 }}>
+                    <span style={{ color: layer.color }}>Mechanism: </span>{layer.mechanism}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+        <div style={{ fontSize: 9, color: P.textDim, marginTop: 8, letterSpacing: "0.12em", paddingLeft: 36 }}>
+          Click any layer to expand · Φ = integrated information estimate (IIT)
+        </div>
+      </div>
+    );
+
+    // ── Main App ───────────────────────────────────────────────────────────────
+
+    function App() {
+      const TAB_HASHES = ["layers", "surge", "hb0", "phi", "confluence"];
+      const TABS = ["ALIVENESS LAYERS", "DEATH SURGE", "BRAIN ZERO HB₀", "Φ-THEORY", "CONFLUENCE"];
+
+      // Hash-based tab routing
+      const getTabFromHash = () => {
+        const hash = window.location.hash.replace('#', '');
+        const idx = TAB_HASHES.indexOf(hash);
+        return idx >= 0 ? idx : 0;
+      };
+
+      const [tab, setTab] = useState(getTabFromHash);
+      const [activeLayer, setActiveLayer] = useState(null);
+      const [expandedPhase, setExpandedPhase] = useState(0);
+      const [expandedQ, setExpandedQ] = useState(null);
+
+      const switchTab = (i) => {
+        setTab(i);
+        window.location.hash = TAB_HASHES[i];
+      };
+
+      // Listen for hash changes (back/forward nav)
+      useEffect(() => {
+        const handler = () => setTab(getTabFromHash());
+        window.addEventListener('hashchange', handler);
+        return () => window.removeEventListener('hashchange', handler);
+      }, []);
+
+      // Keyboard navigation (← → arrow keys)
+      useEffect(() => {
+        const handler = (e) => {
+          if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+          if (e.key === 'ArrowRight') switchTab(Math.min(tab + 1, TABS.length - 1));
+          if (e.key === 'ArrowLeft') switchTab(Math.max(tab - 1, 0));
+        };
+        window.addEventListener('keydown', handler);
+        return () => window.removeEventListener('keydown', handler);
+      }, [tab]);
+
+      return (
+        <div style={{ background: P.bg, minHeight: "100vh", color: P.text, fontFamily: "'IBM Plex Mono', monospace" }}>
+
+          {/* Scanline */}
+          <div style={{
+            position: "fixed", top: 0, left: 0, right: 0, height: 100,
+            background: `linear-gradient(transparent, ${P.gold}08, transparent)`,
+            pointerEvents: "none", zIndex: 200,
+            animation: "scanDrift 12s ease-in-out infinite",
+          }} />
+
+          {/* Header */}
+          <div style={{
+            background: `linear-gradient(180deg, ${P.surface} 0%, ${P.bg} 100%)`,
+            borderBottom: `1px solid ${P.gold}18`,
+            padding: "16px 28px",
+            display: "flex", alignItems: "center", justifyContent: "space-between",
+            flexWrap: "wrap", gap: 12, className: "header-wrap",
+          }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <NeuralNet />
+              <div>
+                <div style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: 24, fontWeight: 700, color: P.textBright,
+                  letterSpacing: "0.05em", lineHeight: 1.1
+                }}>
+                  What Is <span style={{ color: P.gold, fontStyle: "italic" }}>Alive</span>
+                  <span style={{ fontSize: 14, color: P.textDim, fontWeight: 400 }}> — in the dying brain?</span>
+                </div>
+                <div style={{ fontSize: 8, color: P.textDim, letterSpacing: "0.3em", marginTop: 4 }}>
+                  NEURAL COMPLEXITY · CONSCIOUSNESS ENGINEERING · PROJECT CONFLUENCE
+                </div>
+              </div>
+            </div>
+            <div style={{ textAlign: "right" }}>
+              <div style={{ fontSize: 9, color: P.purple, letterSpacing: "0.15em" }}>IIT · HB₀ · Φ-VECTOR</div>
+              <div style={{ fontSize: 8, color: P.textDim, marginTop: 2 }}>Borjigin 2023 · Frontiers 2026 · Koch 2026</div>
+              <div style={{
+                marginTop: 6, display: "inline-block", fontSize: 8, color: P.bg,
+                background: P.purple, padding: "2px 9px", borderRadius: 2,
+                letterSpacing: "0.2em", animation: "breathe 3s ease-in-out infinite"
+              }}>● OPEN QUESTION</div>
+            </div>
+          </div>
+
+          {/* Tabs */}
+          <div style={{
+            display: "flex", borderBottom: `1px solid ${P.gold}12`,
+            background: P.surface, padding: "0 28px", overflowX: "auto",
+          }}>
+            {TABS.map((label, i) => (
+              <button key={label} className="tab-btn"
+                onClick={() => switchTab(i)}
+                style={{
+                  background: "transparent",
+                  borderBottom: `2px solid ${tab === i ? P.gold : "transparent"}`,
+                  borderTop: "none", borderLeft: "none", borderRight: "none",
+                  color: tab === i ? P.gold : P.textDim,
+                  padding: "11px 16px", fontSize: 9, letterSpacing: "0.2em",
+                  fontFamily: "'IBM Plex Mono', monospace", whiteSpace: "nowrap",
+                }}
+              >{label}</button>
+            ))}
+          </div>
+
+          {/* Content */}
+          <div style={{ padding: "22px 28px", maxWidth: 940, margin: "0 auto" }}>
+
+            {/* ── TAB 0: ALIVENESS LAYERS ── */}
+            {tab === 0 && (
+              <div>
+                <Card title="The Layered Anatomy of Aliveness" accent={P.gold}>
+                  <p style={{
+                    fontFamily: "'Cormorant Garamond', serif",
+                    fontSize: 16, lineHeight: 1.9, color: P.text, margin: 0, fontStyle: "italic"
+                  }}>
+                    "Alive" is not a binary. It is a hierarchical complex of six distinct processes,
+                    each with its own decay curve. When the host dies, these layers disaggregate —
+                    not simultaneously, but in sequence. The question is: <span style={{ color: P.gold }}>which layer do you need to sustain?</span>
+                  </p>
+                </Card>
+
+                <Card title="Aliveness Stack — Click to Expand" accent={P.purple}>
+                  <LayerStack active={activeLayer} onSelect={setActiveLayer} />
+                </Card>
+
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 12 }}>
+                  {[
+                    { val: "6", label: "Distinct Layers", accent: P.gold },
+                    { val: "HB₀", label: "Min Viable State", accent: P.purple },
+                    { val: "∞?", label: "Connectome Lifespan", accent: P.green },
+                  ].map(({ val, label, accent }) => (
+                    <div key={label} className="stat-card" style={{
+                      textAlign: "center", padding: "14px",
+                      background: `${accent}08`, border: `1px solid ${accent}25`, borderRadius: 6
+                    }}>
+                      <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 26, color: accent, fontWeight: 700 }}>{val}</div>
+                      <div style={{ fontSize: 9, color: P.textDim, letterSpacing: "0.15em", marginTop: 4 }}>{label}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <Card title="Key Insight for Project Confluence" accent={P.teal}>
+                  <p style={{ fontSize: 12, lineHeight: 1.8, color: P.text, margin: 0 }}>
+                    Your framework targets <span style={{ color: P.teal }}>complexity restoration</span> to treat cancer and sustain life.
+                    The aliveness stack tells you what to target: <strong style={{ color: P.gold }}>Layer 6 (connectome)</strong> encodes identity and never truly perishes (unitarity).
+                    <strong style={{ color: P.purple }}> Layer 3 (EEG coherence)</strong> is what medicine calls "death" — but it's the middle of the stack, not the bottom.
+                    HB₀ defines the minimum Φ needed to traverse from any lower layer back to Layer 1.
+                    Complexity restoration is substrate transition engineering.
+                  </p>
+                </Card>
+              </div>
+            )}
+
+            {/* ── TAB 1: DEATH SURGE ── */}
+            {tab === 1 && (
+              <div>
+                <Card title="The Paradox — The Brain Surges at Death" accent={P.gold}>
+                  <p style={{ fontSize: 12, lineHeight: 1.8, color: P.text, margin: 0 }}>
+                    The mammalian brain, assumed to be hypoactive during cardiac arrest, generates a transient surge of synchronous gamma oscillations within the first 30 seconds after arrest — and this near-death neural activity <span style={{ color: P.gold, fontWeight: 700 }}>exceeds levels found during the conscious waking state.</span>
+                  </p>
+                </Card>
+
+                <Card title="EEG Power — Dying Brain Timeline (Illustrative)" accent={P.gold}>
+                  <div style={{ fontSize: 10, color: P.textDim, marginBottom: 10, letterSpacing: "0.1em" }}>
+                    Cardiac arrest at t=0 · Power normalized to baseline waking = 45
+                  </div>
+                  <ResponsiveContainer width="100%" height={220}>
+                    <AreaChart data={DYING_SURGE} margin={{ top: 10, right: 16, left: 0, bottom: 5 }}>
+                      <defs>
+                        <linearGradient id="surgeGrad" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor={P.gold} stopOpacity={0.4} />
+                          <stop offset="95%" stopColor={P.gold} stopOpacity={0.02} />
+                        </linearGradient>
+                      </defs>
+                      <CartesianGrid strokeDasharray="3 3" stroke={`${P.gold}10`} />
+                      <XAxis dataKey="t"
+                        label={{ value: "Seconds (0 = cardiac arrest)", position: "insideBottomRight", offset: -5, fill: P.textDim, fontSize: 9 }}
+                        tick={{ fill: P.textDim, fontSize: 9 }} stroke={`${P.gold}20`} />
+                      <YAxis domain={[0, 110]}
+                        label={{ value: "Relative EEG Power", angle: -90, position: "insideLeft", fill: P.textDim, fontSize: 9 }}
+                        tick={{ fill: P.textDim, fontSize: 9 }} stroke={`${P.gold}20`} />
+                      <Tooltip content={<Tip unit="" />} />
+                      <ReferenceLine y={45} stroke={P.blue} strokeDasharray="5 5" strokeOpacity={0.4} label={{ value: "Waking Baseline", fill: P.blue, fontSize: 9, position: "right" }} />
+                      <Area type="monotone" dataKey="power" name="Gamma Power"
+                        stroke={P.gold} strokeWidth={2.5} fill="url(#surgeGrad)" />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                  <div style={{ fontSize: 9, color: P.textDim, marginTop: 6, letterSpacing: "0.1em" }}>
+                    Based on Borjigin et al. (2013, PNAS) rat data + Xu et al. (2023) human EEG · Illustrative curve
+                  </div>
+                </Card>
+
+                <Card title="Where The Surge Originates" accent={P.purple}>
+                  {SURGE_ORIGINS.map((s, i) => (
+                    <div key={i} className="hover-row" style={{
+                      display: "flex", alignItems: "flex-start", gap: 12,
+                      padding: "10px 12px", borderRadius: 4, marginBottom: 4,
+                      borderLeft: `2px solid ${s.accent}`,
+                    }}>
+                      <div style={{ width: 20, height: 20, borderRadius: "50%", background: `${s.accent}20`, border: `1px solid ${s.accent}50`,
+                        display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+                        fontSize: 9, color: s.accent, fontWeight: 700 }}>{i+1}</div>
+                      <div>
+                        <div style={{ fontSize: 12, color: P.textBright, fontWeight: 600, marginBottom: 2 }}>{s.region}</div>
+                        <div style={{ fontSize: 10, color: P.textDim, lineHeight: 1.6 }}>{s.role}</div>
+                      </div>
+                    </div>
+                  ))}
+                </Card>
+
+                <Card title="Implications" accent={P.teal}>
+                  <p style={{ fontSize: 12, lineHeight: 1.8, color: P.text, margin: 0 }}>
+                    The death surge may represent a final, high-Φ state — an endogenous terminal simulation.
+                    The <span style={{ color: P.gold, fontWeight: 600 }}>Dying-Moment Dream Hypothesis</span> (Frontiers Psychology, 2026) proposes
+                    that Layer 1 consciousness does not terminate at cardiac arrest but instead generates one final,
+                    maximally-integrated experience. Whether this constitutes sentience is undecided;
+                    that it <span style={{ color: P.purple }}>exceeds waking-state neural integration</span> is empirically established.
+                  </p>
+                  <div style={{ marginTop: 12, display: "flex", gap: 8, flexWrap: "wrap" }}>
+                    <Tag label="BORJIGIN 2013" accent={P.gold} />
+                    <Tag label="XU ET AL. 2023" accent={P.blue} />
+                    <Tag label="FRONTIERS 2026" accent={P.purple} />
+                  </div>
+                </Card>
+
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+                  <div className="stat-card" style={{
+                    textAlign: "center", padding: 18,
+                    background: `${P.gold}08`, border: `1px solid ${P.gold}25`, borderRadius: 6
+                  }}>
+                    <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 32, color: P.gold, fontWeight: 700 }}>213%</div>
+                    <div style={{ fontSize: 9, color: P.textDim, letterSpacing: "0.15em", marginTop: 4 }}>PEAK VS. WAKING BASELINE</div>
+                  </div>
+                  <div className="stat-card" style={{
+                    textAlign: "center", padding: 18,
+                    background: `${P.purple}08`, border: `1px solid ${P.purple}25`, borderRadius: 6
+                  }}>
+                    <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 32, color: P.purple, fontWeight: 700 }}>30–90s</div>
+                    <div style={{ fontSize: 9, color: P.textDim, letterSpacing: "0.15em", marginTop: 4 }}>SURGE WINDOW POST-ARREST</div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* ── TAB 2: BRAIN ZERO HB₀ ── */}
+            {tab === 2 && (
+              <div>
+                <Card title="Human Brain Zero — The Threshold of Re-emergence" accent={P.purple}>
+                  <p style={{
+                    fontFamily: "'Cormorant Garamond', serif",
+                    fontSize: 16, lineHeight: 1.9, color: P.text, margin: 0, fontStyle: "italic"
+                  }}>
+                    HB₀ is defined as the lowest neural complexity state from which consciousness can re-emerge.
+                    It is not an observed state but a theoretical limit — below deep sleep, anesthesia, and
+                    reversible coma. <span style={{ color: P.purple }}>It is substrate-agnostic:</span> an artificial system at HB₀-level Φ
+                    should, in principle, support consciousness re-emergence.
+                  </p>
+                  <div style={{ marginTop: 10, display: "flex", gap: 8, flexWrap: "wrap" }}>
+                    <Tag label="FRONTIERS NEUROSCIENCE 2026" accent={P.purple} />
+                    <Tag label="SUBSTRATE-AGNOSTIC" accent={P.teal} />
+                  </div>
+                </Card>
+
+                <Card title="Consciousness Spectrum — Φ Across Brain States" accent={P.blue}>
+                  <div style={{ fontSize: 10, color: P.textDim, marginBottom: 10, letterSpacing: "0.1em" }}>
+                    Estimated integrated information (Φ) · HB₀ threshold marks the boundary of re-emergence
+                  </div>
+                  <ResponsiveContainer width="100%" height={260}>
+                    <BarChart data={CONSCIOUSNESS_SPECTRUM} margin={{ top: 10, right: 16, left: 0, bottom: 30 }}>
+                      <CartesianGrid strokeDasharray="3 3" stroke={`${P.gold}10`} vertical={false} />
+                      <XAxis dataKey="state" tick={{ fill: P.textDim, fontSize: 8.5 }} stroke={`${P.gold}20`} angle={-20} textAnchor="end" height={50} />
+                      <YAxis domain={[0, 6]} tick={{ fill: P.textDim, fontSize: 9 }} stroke={`${P.gold}20`}
+                        label={{ value: "Φ (Integrated Information)", angle: -90, position: "insideLeft", fill: P.textDim, fontSize: 9 }} />
+                      <Tooltip content={<Tip unit=" Φ" />} />
+                      <ReferenceLine y={0.35} stroke={P.purple} strokeDasharray="6 4" strokeWidth={2}
+                        label={{ value: "HB₀ THRESHOLD", fill: P.purple, fontSize: 9, position: "right" }} />
+                      <Bar dataKey="phi" name="Φ Estimate" radius={[3, 3, 0, 0]}>
+                        {CONSCIOUSNESS_SPECTRUM.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.color} fillOpacity={0.8} />
+                        ))}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                  <div style={{ display: "flex", gap: 16, marginTop: 8, flexWrap: "wrap" }}>
+                    {[
+                      { label: "Below HB₀", color: P.red },
+                      { label: "Experimental", color: P.amber },
+                      { label: "Sub-conscious", color: P.blue },
+                      { label: "Conscious", color: P.gold },
+                      { label: "Anomalous", color: P.red },
+                    ].map(z => (
+                      <div key={z.label} style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 9, color: P.textDim }}>
+                        <div style={{ width: 8, height: 8, borderRadius: 2, background: z.color, opacity: 0.7 }} />
+                        {z.label}
+                      </div>
+                    ))}
+                  </div>
+                </Card>
+
+                <Card title="Φ-Trajectory — From Waking to Sub-HB₀" accent={P.gold}>
+                  <div style={{ fontSize: 10, color: P.textDim, marginBottom: 10, letterSpacing: "0.1em" }}>
+                    Illustrative Φ decay after acute insult · C_cont = area above HB₀ line
+                  </div>
+                  <ResponsiveContainer width="100%" height={200}>
+                    <AreaChart data={HB0_TRAJECTORY} margin={{ top: 10, right: 16, left: 0, bottom: 5 }}>
+                      <defs>
+                        <linearGradient id="phiGrad" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor={P.purple} stopOpacity={0.35} />
+                          <stop offset="95%" stopColor={P.purple} stopOpacity={0.02} />
+                        </linearGradient>
+                      </defs>
+                      <CartesianGrid strokeDasharray="3 3" stroke={`${P.gold}10`} />
+                      <XAxis dataKey="t" tick={{ fill: P.textDim, fontSize: 9 }} stroke={`${P.gold}20`}
+                        label={{ value: "Time (arbitrary units)", position: "insideBottomRight", offset: -5, fill: P.textDim, fontSize: 9 }} />
+                      <YAxis domain={[0, 4.5]} tick={{ fill: P.textDim, fontSize: 9 }} stroke={`${P.gold}20`}
+                        label={{ value: "Φ", angle: -90, position: "insideLeft", fill: P.textDim, fontSize: 9 }} />
+                      <Tooltip content={<Tip unit=" Φ" />} />
+                      <ReferenceLine y={0.35} stroke={P.purple} strokeDasharray="6 4" strokeWidth={2}
+                        label={{ value: "HB₀", fill: P.purple, fontSize: 10, position: "left" }} />
+                      <Area type="monotone" dataKey="phi" name="Φ" stroke={P.gold} strokeWidth={2.5} fill="url(#phiGrad)" />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                  <div className="equation-block" style={{ marginTop: 14 }}>
+                    <div style={{ fontSize: 9, color: P.purple, letterSpacing: "0.2em", marginBottom: 8, fontFamily: "'IBM Plex Mono', monospace" }}>
+                      CONSCIOUSNESS CONTINUITY INTEGRAL
+                    </div>
+                    <div style={{ fontSize: 22, color: P.textBright }}>
+                      C<sub>cont</sub> = ∫<sub>0</sub><sup>T</sup> Φ(t) · H(Φ(t) − Φ<sub>HB₀</sub>) dt
+                    </div>
+                    <div style={{ fontSize: 11, color: P.textDim, marginTop: 8, fontFamily: "'IBM Plex Mono', monospace" }}>
+                      Maximise the area under Φ(t) above the HB₀ threshold
+                    </div>
+                  </div>
+                </Card>
+
+                <Card title="Terminal Lucidity — Traversing HB₀ From Below?" accent={P.green}>
+                  <p style={{ fontSize: 12, lineHeight: 1.8, color: P.text, marginBottom: 14 }}>
+                    Patients with severe neurodegeneration who recover full cognitive clarity hours before death
+                    provide critical evidence: <span style={{ color: P.green, fontWeight: 600 }}>the capacity for high-Φ consciousness is not destroyed</span> even
+                    when the biological substrate appears irreparably compromised.
+                  </p>
+                  {TERMINAL_LUCIDITY.map((tl, i) => (
+                    <div key={i} className="hover-row" style={{
+                      display: "flex", gap: 14, padding: "10px 12px", borderRadius: 4,
+                      marginBottom: 4, borderLeft: `2px solid ${P.green}`,
+                    }}>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontSize: 12, color: P.textBright, fontWeight: 600 }}>{tl.condition}</div>
+                        <div style={{ fontSize: 10, color: P.text, marginTop: 2, lineHeight: 1.5 }}>{tl.recovery}</div>
+                      </div>
+                      <div style={{ textAlign: "right", flexShrink: 0 }}>
+                        <div style={{ fontSize: 10, color: P.green, fontFamily: "'IBM Plex Mono', monospace" }}>{tl.timing}</div>
+                        <div style={{ fontSize: 9, color: P.textDim, marginTop: 2 }}>{tl.evidence}</div>
+                      </div>
+                    </div>
+                  ))}
+                </Card>
+
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10 }}>
+                  {[
+                    { val: "Φ ≈ 0.35", label: "HB₀ Estimate", accent: P.purple },
+                    { val: "OrganEx", label: "Sub-HB₀ Reversal", accent: P.amber },
+                    { val: "?", label: "From Below?", accent: P.green },
+                  ].map(({ val, label, accent }) => (
+                    <div key={label} className="stat-card" style={{
+                      textAlign: "center", padding: 14,
+                      background: `${accent}08`, border: `1px solid ${accent}25`, borderRadius: 6
+                    }}>
+                      <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 22, color: accent, fontWeight: 700 }}>{val}</div>
+                      <div style={{ fontSize: 9, color: P.textDim, letterSpacing: "0.15em", marginTop: 4 }}>{label}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* ── TAB 3: Φ-THEORY ── */}
+            {tab === 3 && (
+              <div>
+                <Card title="Integrated Information Theory — Consciousness as Φ" accent={P.gold}>
+                  <p style={{
+                    fontFamily: "'Cormorant Garamond', serif",
+                    fontSize: 16, lineHeight: 1.9, color: P.text, margin: 0, fontStyle: "italic"
+                  }}>
+                    Φ is the degree of integrated information in a system. Any system — biological or artificial — with Φ above
+                    threshold has some form of subjective experience. Consciousness is substrate-independent;
+                    what matters is the <span style={{ color: P.gold }}>pattern of causal integration</span>, not the medium.
+                  </p>
+                  <div style={{ marginTop: 10, display: "flex", gap: 8, flexWrap: "wrap" }}>
+                    <Tag label="TONONI — IIT 4.0" accent={P.gold} />
+                    <Tag label="KOCH / BIAL 2026" accent={P.purple} />
+                    <Tag label="PANPSYCHISM" accent={P.teal} />
+                  </div>
+                </Card>
+
+                <Card title="Φ Across Brain States" accent={P.blue}>
+                  <div style={{ fontSize: 10, color: P.textDim, marginBottom: 10, letterSpacing: "0.1em" }}>
+                    Comparative Φ estimates · Note the anomalous death surge exceeding waking state
+                  </div>
+                  <ResponsiveContainer width="100%" height={220}>
+                    <BarChart data={PHI_STATES} margin={{ top: 10, right: 16, left: 0, bottom: 5 }}>
+                      <CartesianGrid strokeDasharray="3 3" stroke={`${P.gold}10`} vertical={false} />
+                      <XAxis dataKey="state" tick={{ fill: P.textDim, fontSize: 9 }} stroke={`${P.gold}20`} />
+                      <YAxis domain={[0, 6]} tick={{ fill: P.textDim, fontSize: 9 }} stroke={`${P.gold}20`}
+                        label={{ value: "Φ Estimate", angle: -90, position: "insideLeft", fill: P.textDim, fontSize: 9 }} />
+                      <Tooltip content={<Tip unit=" Φ" />} />
+                      <Bar dataKey="phi" name="Φ" radius={[3, 3, 0, 0]}>
+                        {PHI_STATES.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.color} fillOpacity={0.85} />
+                        ))}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                </Card>
+
+                <Card title="The 5-Dimensional Φ-Vector" accent={P.purple}>
+                  <p style={{ fontSize: 11, lineHeight: 1.7, color: P.text, marginBottom: 14 }}>
+                    Project Confluence extends scalar Φ into a <span style={{ color: P.purple, fontWeight: 600 }}>5-dimensional vector</span>,
+                    each dimension grounded in a measurable biological observable.
+                  </p>
+                  {PHI_VECTOR_DIMS.map((d, i) => (
+                    <div key={i} className="hover-row" style={{
+                      display: "flex", gap: 12, padding: "10px 12px", borderRadius: 4,
+                      marginBottom: 4, borderLeft: `2px solid ${P.purple}`,
+                      alignItems: "flex-start",
+                    }}>
+                      <div style={{ fontSize: 18, width: 28, textAlign: "center", flexShrink: 0 }}>{d.icon}</div>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ display: "flex", gap: 8, alignItems: "baseline" }}>
+                          <span style={{ fontSize: 12, color: P.purple, fontWeight: 700, fontFamily: "'IBM Plex Mono', monospace" }}>{d.dim}</span>
+                          <span style={{ fontSize: 12, color: P.textBright, fontWeight: 600 }}>{d.name}</span>
+                        </div>
+                        <div style={{ fontSize: 10, color: P.textDim, marginTop: 2, lineHeight: 1.5 }}>{d.observable}</div>
+                      </div>
+                    </div>
+                  ))}
+                </Card>
+
+                <Card title="Φ-Vector Radar — System State Comparison" accent={P.teal}>
+                  <div style={{ fontSize: 10, color: P.textDim, marginBottom: 10, letterSpacing: "0.1em" }}>
+                    Normalized Φ-vector profiles · Healthy vs. Cancer vs. Aged vs. HB₀ threshold
+                  </div>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <RadarChart data={RADAR_DATA}>
+                      <PolarGrid stroke={`${P.gold}15`} />
+                      <PolarAngleAxis dataKey="dim" tick={{ fill: P.textDim, fontSize: 10 }} />
+                      <PolarRadiusAxis domain={[0, 1]} tick={{ fill: P.textDim, fontSize: 8 }} stroke={`${P.gold}15`} />
+                      <Radar name="Healthy" dataKey="healthy" stroke={P.green} fill={P.green} fillOpacity={0.15} strokeWidth={2} />
+                      <Radar name="Cancer" dataKey="cancer" stroke={P.red} fill={P.red} fillOpacity={0.1} strokeWidth={2} />
+                      <Radar name="Aged" dataKey="aged" stroke={P.amber} fill={P.amber} fillOpacity={0.08} strokeWidth={1.5} strokeDasharray="4 3" />
+                      <Radar name="HB₀" dataKey="hb0" stroke={P.purple} fill={P.purple} fillOpacity={0.06} strokeWidth={1.5} strokeDasharray="2 2" />
+                      <Legend wrapperStyle={{ fontSize: 10, fontFamily: "'IBM Plex Mono', monospace", color: P.textDim }} />
+                    </RadarChart>
+                  </ResponsiveContainer>
+                </Card>
+
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 12 }}>
+                  <Card title="Koch's Extension (2026)" accent={P.amber} style={{ marginBottom: 0 }}>
+                    <p style={{ fontSize: 11, lineHeight: 1.7, color: P.text, margin: 0 }}>
+                      Consciousness may be a <span style={{ color: P.amber, fontWeight: 600 }}>fundamental feature of reality</span>,
+                      not a byproduct of neural computation. If correct: death is a change in the
+                      <em> filter</em> of consciousness (the connectome and its Φ), not the annihilation of consciousness itself.
+                    </p>
+                  </Card>
+                  <Card title="Quantum Unitarity" accent={P.teal} style={{ marginBottom: 0 }}>
+                    <p style={{ fontSize: 11, lineHeight: 1.7, color: P.text, margin: 0 }}>
+                      |ψ(0)⟩ = U†(t)|ψ(t)⟩ — unitary operators are invertible. Information in the connectome has
+                      <span style={{ color: P.teal, fontWeight: 600 }}> physical reality</span> and resists erasure up to thermodynamic limits.
+                      Erasing 1 bit costs kT ln2 joules (Landauer's principle).
+                    </p>
+                  </Card>
+                </div>
+
+                <Card title="The Infotropy Principle" accent={P.green}>
+                  <p style={{ fontSize: 12, lineHeight: 1.8, color: P.text, margin: 0 }}>
+                    Biological systems are not merely complex — they are <span style={{ color: P.green, fontWeight: 600 }}>information-seeking</span>.
+                    The brain develops only through continuous information supply. C<sub>cont</sub> depends not only on internal Φ
+                    but on the organism's access to an information-rich environment. Terminal illness reduces both:
+                    internal complexity collapses <em>and</em> the information environment narrows.
+                    <span style={{ color: P.gold }}> Therapeutic protocols should address both axes.</span>
+                  </p>
+                </Card>
+              </div>
+            )}
+
+            {/* ── TAB 4: CONFLUENCE ── */}
+            {tab === 4 && (
+              <div>
+                <Card title="Project Confluence — Unified Terminal Framework" accent={P.gold}>
+                  <p style={{
+                    fontFamily: "'Cormorant Garamond', serif",
+                    fontSize: 16, lineHeight: 1.9, color: P.text, margin: 0, fontStyle: "italic"
+                  }}>
+                    Three independent lines of research converge: all terminal conditions — cancer, aging,
+                    and biological host death — are instances of the same underlying problem:
+                    <span style={{ color: P.gold }}> the degradation of an organism's Φ-trajectory below its minimum
+                    viable complexity threshold.</span>
+                  </p>
+                </Card>
+
+                <Card title="The Three Terminal Conditions as One Problem" accent={P.red}>
+                  {THREE_CONDITIONS.map((c, i) => (
+                    <div key={i} style={{
+                      background: `${c.color}06`, border: `1px solid ${c.color}20`,
+                      borderRadius: 6, padding: "14px 16px", marginBottom: 8,
+                      transition: "all 0.2s",
+                    }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+                        <span style={{ fontSize: 20, color: c.color }}>{c.icon}</span>
+                        <span style={{ fontSize: 14, color: P.textBright, fontWeight: 700 }}>{c.name}</span>
+                        <div style={{ flex: 1 }} />
+                        <Tag label={c.name.toUpperCase()} accent={c.color} />
+                      </div>
+                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, fontSize: 10, lineHeight: 1.6 }}>
+                        <div>
+                          <div style={{ color: c.color, fontSize: 8, letterSpacing: "0.15em", marginBottom: 3 }}>MECHANISM</div>
+                          <div style={{ color: P.text }}>{c.mechanism}</div>
+                        </div>
+                        <div>
+                          <div style={{ color: c.color, fontSize: 8, letterSpacing: "0.15em", marginBottom: 3 }}>Φ EFFECT</div>
+                          <div style={{ color: P.text }}>{c.phiEffect}</div>
+                        </div>
+                        <div>
+                          <div style={{ color: c.color, fontSize: 8, letterSpacing: "0.15em", marginBottom: 3 }}>TARGET</div>
+                          <div style={{ color: P.text }}>{c.target}</div>
+                        </div>
+                        <div>
+                          <div style={{ color: c.color, fontSize: 8, letterSpacing: "0.15em", marginBottom: 3 }}>EVIDENCE</div>
+                          <div style={{ color: P.text }}>{c.evidence}</div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </Card>
+
+                <Card title="Confluence Map — Neural ↔ Molecular ↔ Theoretical" accent={P.teal}>
+                  <div style={{ overflowX: "auto" }}>
+                    <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11 }}>
+                      <thead>
+                        <tr style={{ borderBottom: `1px solid ${P.gold}20` }}>
+                          <th style={{ textAlign: "left", padding: "8px 12px", color: P.gold, fontSize: 8, letterSpacing: "0.2em" }}>RESEARCH LINE</th>
+                          <th style={{ textAlign: "left", padding: "8px 12px", color: P.gold, fontSize: 8, letterSpacing: "0.2em" }}>Φ-VECTOR MAPPING</th>
+                          <th style={{ textAlign: "center", padding: "8px 12px", color: P.gold, fontSize: 8, letterSpacing: "0.2em" }}>STATUS</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {CONFLUENCE_MAP.map((row, i) => (
+                          <tr key={i} className="hover-row" style={{ borderBottom: `1px solid ${P.gold}08` }}>
+                            <td style={{ padding: "10px 12px", color: P.textBright, borderLeft: `2px solid ${row.accent}` }}>{row.oncrna}</td>
+                            <td style={{ padding: "10px 12px", color: P.text }}>{row.phi}</td>
+                            <td style={{ padding: "10px 12px", textAlign: "center" }}>
+                              <Tag label={row.tag} accent={row.accent} />
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </Card>
+
+                <Card title="Improvement Protocol — Phased Roadmap" accent={P.purple}>
+                  {PHASES.map((phase, pi) => (
+                    <div key={pi} style={{ marginBottom: 10 }}>
+                      <div
+                        onClick={() => setExpandedPhase(expandedPhase === pi ? null : pi)}
+                        style={{
+                          display: "flex", alignItems: "center", gap: 12,
+                          padding: "10px 14px", borderRadius: 6, cursor: "pointer",
+                          background: expandedPhase === pi ? `${phase.color}10` : "transparent",
+                          border: `1px solid ${expandedPhase === pi ? phase.color : phase.color + "20"}`,
+                          transition: "all 0.2s",
+                        }}>
+                        <div style={{
+                          width: 28, height: 28, borderRadius: "50%", flexShrink: 0,
+                          background: `${phase.color}20`, border: `1.5px solid ${phase.color}`,
+                          display: "flex", alignItems: "center", justifyContent: "center",
+                          fontSize: 12, fontWeight: 700, color: phase.color,
+                        }}>{phase.id}</div>
+                        <div style={{ flex: 1 }}>
+                          <div style={{ fontSize: 12, color: P.textBright, fontWeight: 600 }}>{phase.label}</div>
+                          <div style={{ fontSize: 9, color: P.textDim }}>{phase.timeline}</div>
+                        </div>
+                        <Tag label={phase.status} accent={phase.color} />
+                        <span style={{ color: P.textDim, fontSize: 12, transition: "transform 0.2s", transform: expandedPhase === pi ? "rotate(90deg)" : "rotate(0)" }}>▸</span>
+                      </div>
+                      {expandedPhase === pi && (
+                        <div style={{ padding: "8px 14px 8px 54px", animation: "fadeIn 0.25s ease-out" }}>
+                          {phase.items.map((item, ii) => (
+                            <div key={ii} style={{
+                              display: "flex", alignItems: "center", gap: 8,
+                              padding: "5px 0", fontSize: 10, color: P.text,
+                            }}>
+                              <div style={{ width: 5, height: 5, borderRadius: "50%", background: phase.color, opacity: 0.6, flexShrink: 0 }} />
+                              {item}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </Card>
+
+                <Card title="Open Research Questions" accent={P.gold}>
+                  {OPEN_QUESTIONS.map((oq, i) => (
+                    <div key={i}
+                      onClick={() => setExpandedQ(expandedQ === i ? null : i)}
+                      className="hover-row"
+                      style={{
+                        padding: "8px 12px", borderRadius: 4, marginBottom: 3, cursor: "pointer",
+                        borderLeft: `2px solid ${oq.color}`,
+                        transition: "all 0.15s",
+                      }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                        <Tag label={oq.priority} accent={oq.color} />
+                        <div style={{ fontSize: 11, color: P.textBright, flex: 1 }}>{oq.q}</div>
+                        <span style={{ color: P.textDim, fontSize: 10, transform: expandedQ === i ? "rotate(90deg)" : "rotate(0)", transition: "transform 0.15s" }}>▸</span>
+                      </div>
+                      {expandedQ === i && (
+                        <div style={{ marginTop: 6, paddingLeft: 52, fontSize: 10, color: P.textDim, lineHeight: 1.6, animation: "fadeIn 0.2s ease-out" }}>
+                          <span style={{ color: oq.color }}>Approach: </span>{oq.approach}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </Card>
+
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 10 }}>
+                  {[
+                    { val: "25", label: "Tests Passed", accent: P.green },
+                    { val: "5D", label: "Φ-Vector", accent: P.purple },
+                    { val: "C_cont", label: "Core Metric", accent: P.gold },
+                    { val: "3", label: "Research Phases", accent: P.teal },
+                  ].map(({ val, label, accent }) => (
+                    <div key={label} className="stat-card" style={{
+                      textAlign: "center", padding: 14,
+                      background: `${accent}08`, border: `1px solid ${accent}25`, borderRadius: 6
+                    }}>
+                      <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 22, color: accent, fontWeight: 700 }}>{val}</div>
+                      <div style={{ fontSize: 8, color: P.textDim, letterSpacing: "0.15em", marginTop: 4 }}>{label}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <Card title="The Central Thesis" accent={P.gold} style={{ marginTop: 12 }}>
+                  <div className="equation-block">
+                    <div style={{ fontSize: 9, color: P.gold, letterSpacing: "0.25em", marginBottom: 10, fontFamily: "'IBM Plex Mono', monospace" }}>
+                      COMPLEXITY RESTORATION IS SUBSTRATE TRANSITION ENGINEERING
+                    </div>
+                    <p style={{
+                      fontFamily: "'Cormorant Garamond', serif",
+                      fontSize: 15, lineHeight: 1.8, color: P.text, margin: 0, fontStyle: "italic"
+                    }}>
+                      Every therapeutic intervention — cancer treatment, anti-aging, post-mortem substrate transition —
+                      is an attempt to extend the area under the Φ(t) curve above the HB₀ line.
+                      The organism's sentience is sustained when, and only when, the Consciousness Continuity Integral
+                      remains positive.
+                    </p>
+                  </div>
+                </Card>
+              </div>
+            )}
+
+          </div>
+
+          {/* Footer */}
+          <div style={{
+            borderTop: `1px solid ${P.gold}10`, padding: "14px 28px",
+            display: "flex", justifyContent: "space-between", alignItems: "center",
+            maxWidth: 940, margin: "24px auto 0",
+          }}>
+            <div style={{ fontSize: 8, color: P.textDim, letterSpacing: "0.15em" }}>
+              PROJECT CONFLUENCE · cloudynirvana · 2026
+            </div>
+            <div style={{ fontSize: 8, color: P.textDim, letterSpacing: "0.15em" }}>
+              IIT · BORJIGIN · KOCH · FRONTIERS · ARC INSTITUTE
+            </div>
+          </div>
+
+          <div style={{ height: 40 }} />
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>
