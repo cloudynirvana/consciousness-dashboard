@@ -588,6 +588,12 @@
       const [expandedPhase, setExpandedPhase] = useState(0);
       const [expandedQ, setExpandedQ] = useState(null);
 
+      // Holistic Sentience Sustainability Sliders
+      const [molecular, setMolecular] = useState(0.8);
+      const [neural, setNeural] = useState(0.75);
+      const [phiScale, setPhiScale] = useState(0.85);
+      const [perfusion, setPerfusion] = useState(0.6);
+
       const switchTab = (i) => {
         setTab(i);
         window.location.hash = TAB_HASHES[i];
@@ -1058,9 +1064,6 @@
               </div>
             )}
 
-            {/* ── TAB 4: CONFLUENCE ── */}
-            {tab === 4 && (
-              <div>
                 <Card title="Project Confluence — Unified Terminal Framework" accent={P.gold}>
                   <p style={{
                     fontFamily: "'Cormorant Garamond', serif",
@@ -1072,6 +1075,232 @@
                     viable complexity threshold.</span>
                   </p>
                 </Card>
+
+                {/* Holistic Sentience Sustainability Protocol Planner */}
+                {(() => {
+                  const calculatedCcont = parseFloat((phiScale * neural * molecular * 10 + perfusion * 5).toFixed(2));
+                  const calculatedCoherence = Math.round((molecular * 0.3 + neural * 0.3 + phiScale * 0.25 + perfusion * 0.15) * 100);
+                  
+                  let stabilityStatus = "CRITICAL ANNIHILATION";
+                  let stabilityColor = P.red;
+                  let resilienceRating = "F";
+                  
+                  if (calculatedCoherence >= 85) {
+                    stabilityStatus = "HOLISTIC STABILITY";
+                    stabilityColor = P.green;
+                    resilienceRating = "S";
+                  } else if (calculatedCoherence >= 70) {
+                    stabilityStatus = "STABLE CONTINUITY";
+                    stabilityColor = P.teal;
+                    resilienceRating = "A";
+                  } else if (calculatedCoherence >= 50) {
+                    stabilityStatus = "COMPLEXITY EROSION";
+                    stabilityColor = P.amber;
+                    resilienceRating = "B";
+                  } else if (calculatedCoherence >= 35) {
+                    stabilityStatus = "THRESHOLD BOUNDARY (HB₀)";
+                    stabilityColor = P.purple;
+                    resilienceRating = "C";
+                  }
+
+                  return (
+                    <Card title="Holistic Sentience Sustainability Protocol Planner" accent={P.teal}>
+                      <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 24, margin: "10px 0 20px" }} className="stat-grid-2">
+                        {/* Sliders Column */}
+                        <div>
+                          <div style={{ fontSize: 9, color: P.textDim, letterSpacing: "0.12em", marginBottom: 12 }}>
+                            HOLISTIC SUSTAINABILITY SLIDERS
+                          </div>
+                          
+                          {/* Molecular Slider */}
+                          <div style={{ marginBottom: 14 }}>
+                            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, marginBottom: 4 }}>
+                              <span style={{ color: P.textBright, fontWeight: 600 }}>🧬 Molecular Integrity (M)</span>
+                              <span style={{ color: P.teal, fontFamily: "'IBM Plex Mono', monospace" }}>{(molecular * 100).toFixed(0)}%</span>
+                            </div>
+                            <input 
+                              type="range" min="0" max="1" step="0.05" value={molecular} 
+                              onChange={(e) => setMolecular(parseFloat(e.target.value))}
+                              style={{ width: "100%", accentColor: P.teal, background: P.surface2, height: 4, borderRadius: 2 }}
+                            />
+                            <div style={{ fontSize: 8, color: P.textDim, marginTop: 2 }}>oncRNA expression diversity & metabolic pathway stability</div>
+                          </div>
+
+                          {/* Neural Slider */}
+                          <div style={{ marginBottom: 14 }}>
+                            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, marginBottom: 4 }}>
+                              <span style={{ color: P.textBright, fontWeight: 600 }}>🧠 Neural Synchrony (S)</span>
+                              <span style={{ color: P.gold, fontFamily: "'IBM Plex Mono', monospace" }}>{(neural * 100).toFixed(0)}%</span>
+                            </div>
+                            <input 
+                              type="range" min="0" max="1" step="0.05" value={neural} 
+                              onChange={(e) => setNeural(parseFloat(e.target.value))}
+                              style={{ width: "100%", accentColor: P.gold, background: P.surface2, height: 4, borderRadius: 2 }}
+                            />
+                            <div style={{ fontSize: 8, color: P.textDim, marginTop: 2 }}>Gamma oscillatory coherence & global workspace binding</div>
+                          </div>
+
+                          {/* Phi Scale Slider */}
+                          <div style={{ marginBottom: 14 }}>
+                            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, marginBottom: 4 }}>
+                              <span style={{ color: P.textBright, fontWeight: 600 }}>🔮 Causal Integration (Φ_scale)</span>
+                              <span style={{ color: P.purple, fontFamily: "'IBM Plex Mono', monospace" }}>{(phiScale * 100).toFixed(0)}%</span>
+                            </div>
+                            <input 
+                              type="range" min="0" max="1" step="0.05" value={phiScale} 
+                              onChange={(e) => setPhiScale(parseFloat(e.target.value))}
+                              style={{ width: "100%", accentColor: P.purple, background: P.surface2, height: 4, borderRadius: 2 }}
+                            />
+                            <div style={{ fontSize: 8, color: P.textDim, marginTop: 2 }}>IIT 4.0 integrated information level relative to baseline</div>
+                          </div>
+
+                          {/* Perfusion Slider */}
+                          <div style={{ marginBottom: 14 }}>
+                            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, marginBottom: 4 }}>
+                              <span style={{ color: P.textBright, fontWeight: 600 }}>🔄 OrganEx Resuscitation (R)</span>
+                              <span style={{ color: P.amber, fontFamily: "'IBM Plex Mono', monospace" }}>{(perfusion * 100).toFixed(0)}%</span>
+                            </div>
+                            <input 
+                              type="range" min="0" max="1" step="0.05" value={perfusion} 
+                              onChange={(e) => setPerfusion(parseFloat(e.target.value))}
+                              style={{ width: "100%", accentColor: P.amber, background: P.surface2, height: 4, borderRadius: 2 }}
+                            />
+                            <div style={{ fontSize: 8, color: P.textDim, marginTop: 2 }}>Post-ischemic metabolic perfusion & cellular recovery capacity</div>
+                          </div>
+                        </div>
+
+                        {/* Diagnostic Screen Column */}
+                        <div style={{ 
+                          background: `${P.bg}80`, border: `1px solid ${stabilityColor}40`, 
+                          borderRadius: 8, padding: 16, display: "flex", flexDirection: "column",
+                          justifyContent: "space-between", position: "relative"
+                        }}>
+                          {/* Inner glow effect */}
+                          <div style={{
+                            position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
+                            boxShadow: `inset 0 0 15px ${stabilityColor}12`, pointerEvents: "none", borderRadius: 8
+                          }} />
+                          
+                          <div>
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                              <span style={{ fontSize: 8, color: P.textDim, letterSpacing: "0.2em" }}>BIOMETRIC ANALYZER</span>
+                              <span style={{ 
+                                fontSize: 8, color: stabilityColor, background: `${stabilityColor}15`, 
+                                padding: "2px 6px", borderRadius: 2, fontWeight: 700, letterSpacing: "0.1em" 
+                              }}>{stabilityStatus}</span>
+                            </div>
+
+                            <div style={{ textAlign: "center", margin: "12px 0" }}>
+                              <div style={{ fontSize: 8, color: P.textDim, letterSpacing: "0.15em" }}>CONSCIOUSNESS CONTINUITY (C_cont)</div>
+                              <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 44, color: P.textBright, fontWeight: 700, margin: "4px 0" }}>
+                                {calculatedCcont}
+                              </div>
+                              <div style={{ fontSize: 8, color: calculatedCcont >= 3.5 ? P.green : P.red }}>
+                                {calculatedCcont >= 3.5 ? "✓ SENTIENCE COHERENT" : "⚠ IRREVERSIBLE DISSOCIATION"}
+                              </div>
+                            </div>
+                          </div>
+
+                          <div style={{ borderTop: `1px solid ${stabilityColor}20`, paddingTop: 10, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                            <div>
+                              <div style={{ fontSize: 7, color: P.textDim, letterSpacing: "0.1em" }}>COMPLEXITY COHERENCE</div>
+                              <div style={{ fontSize: 14, color: stabilityColor, fontWeight: 700, fontFamily: "'IBM Plex Mono', monospace" }}>
+                                {calculatedCoherence}%
+                              </div>
+                            </div>
+                            <div>
+                              <div style={{ fontSize: 7, color: P.textDim, letterSpacing: "0.1em" }}>RESILIENCE RATING</div>
+                              <div style={{ fontSize: 14, color: stabilityColor, fontWeight: 700, fontFamily: "'IBM Plex Mono', monospace" }}>
+                                CLASS {resilienceRating}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Intervention Advisory Checklist */}
+                      <div style={{ borderTop: `1px solid ${P.teal}20`, paddingTop: 14 }}>
+                        <div style={{ fontSize: 9, color: P.teal, letterSpacing: "0.25em", marginBottom: 10 }}>
+                          HOLISTIC STABILIZATION & TREATMENTS CHECKLIST
+                        </div>
+                        
+                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }} className="stat-grid-2">
+                          {/* Left Advisory Block */}
+                          <div style={{ 
+                            background: molecular < 0.5 ? `${P.red}05` : `${P.green}04`, 
+                            borderLeft: `3px solid ${molecular < 0.5 ? P.red : P.green}`,
+                            borderRadius: "0 6px 6px 0", padding: "10px 12px"
+                          }}>
+                            <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                              <span style={{ fontSize: 10, color: molecular < 0.5 ? P.red : P.green }}>●</span>
+                              <span style={{ fontSize: 11, color: P.textBright, fontWeight: 600 }}>Molecular Stabilization</span>
+                            </div>
+                            <p style={{ fontSize: 9, color: P.textDim, marginTop: 4, lineHeight: 1.5 }}>
+                              {molecular < 0.5 
+                                ? "⚠ Critical: Molecular complexity collapse. Immediately initiate targeted oncRNA expression sequencing to reverse localized tumor/tissue chaos."
+                                : "✓ Stable: High oncRNA expression diversity. Maintain microenvironment buffering and transcription complexity."
+                              }
+                            </p>
+                          </div>
+
+                          {/* Right Advisory Block */}
+                          <div style={{ 
+                            background: neural < 0.5 ? `${P.red}05` : `${P.green}04`, 
+                            borderLeft: `3px solid ${neural < 0.5 ? P.red : P.green}`,
+                            borderRadius: "0 6px 6px 0", padding: "10px 12px"
+                          }}>
+                            <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                              <span style={{ fontSize: 10, color: neural < 0.5 ? P.red : P.green }}>●</span>
+                              <span style={{ fontSize: 11, color: P.textBright, fontWeight: 600 }}>Oscillatory Coherence</span>
+                            </div>
+                            <p style={{ fontSize: 9, color: P.textDim, marginTop: 4, lineHeight: 1.5 }}>
+                              {neural < 0.5 
+                                ? "⚠ Critical: Gamma oscillatory fragmentation detected. Deploy non-invasive focal electrical or acoustic neuromodulation to coordinate TPO junction."
+                                : "✓ Stable: Synchronous gamma bands intact. Global neuronal workspace connectivity remains active."
+                              }
+                            </p>
+                          </div>
+
+                          {/* Bottom Left: Phi Scale */}
+                          <div style={{ 
+                            background: phiScale < 0.35 ? `${P.red}05` : `${P.green}04`, 
+                            borderLeft: `3px solid ${phiScale < 0.35 ? P.red : P.green}`,
+                            borderRadius: "0 6px 6px 0", padding: "10px 12px"
+                          }}>
+                            <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                              <span style={{ fontSize: 10, color: phiScale < 0.35 ? P.red : P.green }}>●</span>
+                              <span style={{ fontSize: 11, color: P.textBright, fontWeight: 600 }}>Causal Integration Threshold</span>
+                            </div>
+                            <p style={{ fontSize: 9, color: P.textDim, marginTop: 4, lineHeight: 1.5 }}>
+                              {phiScale < 0.35 
+                                ? "⚠ EMERGENCY: Causal integration below HB₀ threshold (0.35). Sentience is fading. Immediate complexity stimulation required."
+                                : "✓ Stable: Φ remains safely above the HB₀ threshold. Irreducible cognitive kernel of sentience is self-sustaining."
+                              }
+                            </p>
+                          </div>
+
+                          {/* Bottom Right: Perfusion */}
+                          <div style={{ 
+                            background: perfusion < 0.5 ? `${P.red}05` : `${P.green}04`, 
+                            borderLeft: `3px solid ${perfusion < 0.5 ? P.red : P.green}`,
+                            borderRadius: "0 6px 6px 0", padding: "10px 12px"
+                          }}>
+                            <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                              <span style={{ fontSize: 10, color: perfusion < 0.5 ? P.red : P.green }}>●</span>
+                              <span style={{ fontSize: 11, color: P.textBright, fontWeight: 600 }}>OrganEx Resuscitability</span>
+                            </div>
+                            <p style={{ fontSize: 9, color: P.textDim, marginTop: 4, lineHeight: 1.5 }}>
+                              {perfusion < 0.5 
+                                ? "⚠ Warning: Ischemic recovery window narrowing. Increase perfusion solutions and synthetic metabolic substrates to prevent cell lysis."
+                                : "✓ Stable: Excellent metabolic recovery. Cellular scaffolds are highly receptive to perfusion and restoration triggers."
+                              }
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </Card>
+                  );
+                })()}
 
                 <Card title="The Three Terminal Conditions as One Problem" accent={P.red}>
                   {THREE_CONDITIONS.map((c, i) => (
