@@ -15,11 +15,11 @@
 
 <p align="center">
   <em>Interactive visualization of the layered architecture of aliveness, neural death surges,<br/>
-  Human Brain Zero (HB₀), Integrated Information Theory, and Project Confluence</em>
+  Human Brain Zero (HB₀), Integrated Information Theory, and a conceptual link to Project Confluence</em>
 </p>
 
 <p align="center">
-  <a href="https://github.com/cloudynirvana/project-confluence">🔗 Part of Project Confluence</a> ·
+  <a href="https://github.com/cloudynirvana/project-confluence">🔗 Related: Project Confluence (in silico, separate)</a> ·
   <a href="#-quick-start">Quick Start</a> ·
   <a href="RESEARCH.md">Research Framework</a> ·
   <a href="#-scientific-framework">Science</a>
@@ -29,11 +29,15 @@
 
 ## 📖 Overview
 
-**What Is Alive** is a single-file interactive dashboard that visualizes the cutting-edge science of consciousness, death, and the boundaries of biological aliveness. Built as a self-contained `index.html`, it requires no build tools, no server, and no dependencies to install — just open it in any modern browser.
+**What Is Alive** is a single-file interactive dashboard that visualizes questions — not verdicts — about consciousness, death, and the boundaries of biological aliveness. Built as a self-contained `index.html`, it requires no build tools, no server, and no dependencies to install — just open it in any modern browser.
 
-The dashboard synthesizes research from the **Borjigin Lab** (neural death surges), **Yale's OrganEx** (post-mortem cellular recovery), the **Koch/BIAL Foundation** consciousness collaboration, and **Arc Institute's oncRNA** discoveries into a unified computational framework: the **Consciousness Continuity Integral (C_cont)**.
+The dashboard draws on published research from the **Borjigin Lab** (neural death surges), **Yale's OrganEx** (post-mortem cellular recovery), the **Koch/BIAL Foundation** consciousness collaboration, and **Arc Institute's oncRNA** work, and sketches them as a theoretical picture: the **Consciousness Continuity Integral (C_cont)**. Charts and parameters are illustrative models, not clinical measurements.
 
 > *"If gamma oscillations surge during cardiac arrest, then 'death' is not a binary event — it is a phase transition with a measurable information signature."*
+
+This is **not a medical device**, not a diagnostic, and not guidance for resuscitation or death determination. See [DISCLAIMER.md](DISCLAIMER.md).
+
+**Project Confluence** ([cloudynirvana/project-confluence](https://github.com/cloudynirvana/project-confluence)) is a *separate* computational oncology research line (in silico). It is mentioned here as conceptual kinship — shared questions about complexity and Φ-collapse — not as a clinical validation of this dashboard.
 
 ---
 
@@ -60,7 +64,7 @@ The dashboard features five richly illustrated tabs, each rendering real-time in
 - **🚀 Zero-install** — Single `index.html`, runs from filesystem or any static host
 - **📊 5 interactive tabs** — Each tab presents a distinct dimension of consciousness science
 - **🎨 Publication-quality typography** — IBM Plex Mono + Cormorant Garamond via Google Fonts CDN
-- **📐 Real scientific data models** — Equations and parameters sourced from peer-reviewed literature
+- **📐 Literature-grounded models** — Equations and parameters *inspired by* peer-reviewed work; values on screen are illustrative, not measured patients
 - **🌗 Dark theme** — Designed for extended exploratory sessions
 - **📱 Responsive layout** — Works on desktop, tablet, and mobile viewports
 - **⚡ CDN-powered** — React 18, ReactDOM, Babel, and Recharts loaded from unpkg/cdnjs
@@ -130,7 +134,7 @@ where:
 
 #### HB₀ — Human Brain Zero
 
-The **minimum viable consciousness** — the smallest neural configuration that sustains Φ > 0, analogous to the concept of a "ground state" in physics. HB₀ defines the phase boundary between recoverable and irreversible cessation.
+A **theoretical** minimum-viable-consciousness sketch — the smallest neural configuration that would sustain Φ > 0, analogous to a "ground state" in physics. In this picture, HB₀ is a drawn phase boundary, not a clinical test of recoverable vs. irreversible cessation.
 
 #### K(Φ) — Complexity Metric
 
@@ -149,6 +153,7 @@ consciousness-dashboard/
 ├── index.html          # 🎯 The entire application — single file
 ├── README.md           # 📖 This file
 ├── RESEARCH.md         # 🔬 Full scientific companion document
+├── DISCLAIMER.md       # ⚖️  Not a medical device / not clinical guidance
 ├── LICENSE             # ⚖️  MIT License
 └── .gitignore          # 🙈 Standard web ignores
 ```
@@ -178,7 +183,7 @@ consciousness-dashboard/
 
 | Project | Description |
 |:--------|:-----------|
-| [**cloudynirvana/project-confluence**](https://github.com/cloudynirvana/project-confluence) | The parent research project — unifying consciousness science, death studies, and information theory |
+| [**cloudynirvana/project-confluence**](https://github.com/cloudynirvana/project-confluence) | Separate computational oncology research (in silico). Conceptual kin, not a clinical validation of this dashboard |
 
 ---
 
@@ -231,7 +236,7 @@ If you use this dashboard or its scientific framework in research, please cite:
 
 <p align="center">
   <strong>🧠 What does it mean to be alive?</strong><br/>
-  <em>This dashboard is an attempt to visualize the answer.</em>
+  <em>This dashboard is an attempt to visualize the question — not to decide it for anyone.</em>
 </p>
 
 <p align="center">

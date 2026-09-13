@@ -4,7 +4,9 @@
 *A Unified Computational Framework for Aliveness, Death, and Integrated Information*
 
 > Companion to: [cloudynirvana/consciousness-dashboard](https://github.com/cloudynirvana/consciousness-dashboard)
-> Parent project: [cloudynirvana/project-confluence](https://github.com/cloudynirvana/project-confluence)
+> Related (separate) project: [cloudynirvana/project-confluence](https://github.com/cloudynirvana/project-confluence) — computational oncology, in silico; not a clinical validation of this dashboard
+
+> **Boundary:** This document is theoretical research / philosophy of mind, not a medical device and not clinical guidance. It does not diagnose, determine death, or prescribe resuscitation or treatment. See [DISCLAIMER.md](DISCLAIMER.md).
 
 ---
 
@@ -29,7 +31,7 @@ The dominant binary model of life and death — alive vs. dead, conscious vs. un
 
 2. **Post-mortem cellular recovery** via perfusion technologies (OrganEx, Yale 2022) shows that cellular death is not instantaneous but proceeds through a recoverable gradient — raising the question of what constitutes the *minimum viable consciousness* threshold.
 
-3. **Integrated Information Theory (IIT)** provides a mathematical framework (Φ, the integrated information measure) that quantifies consciousness as a continuous variable, not a binary state — enabling, for the first time, a computable definition of "aliveness" that spans molecular, neural, and cognitive scales.
+3. **Integrated Information Theory (IIT)** provides a mathematical framework (Φ, the integrated information measure) that treats consciousness as a continuous variable, not a binary state — inviting a *computable sketch* of "aliveness" across molecular, neural, and cognitive scales. That sketch is a research hypothesis, not a clinical definition.
 
 This document presents the **Consciousness Continuity Framework** — a synthesis of these research programs into a single computational model, anchored by the **Consciousness Continuity Integral (C_cont)**, the **Human Brain Zero (HB₀)** concept, and the **Infotropy Principle**.
 
@@ -130,7 +132,7 @@ where:
   Φ_min = smallest measurable integrated information
 ```
 
-**Clinical significance:** HB₀ defines the boundary below which recovery of consciousness is physically impossible, regardless of technological intervention. OrganEx demonstrates that *cellular* recovery (L2) can occur well below HB₀ — but consciousness (L4+) cannot.
+**Theoretical significance:** In this model, HB₀ is the *drawn* boundary below which recovery of consciousness would be treated as impossible. That is a hypothesis, not a determination of death or a prognosis. OrganEx shows that *cellular* recovery (L2) can occur after cardiac arrest in animals — it does not show that consciousness (L4+) can, or cannot, be restored in humans by this dashboard.
 
 ### Pillar 3: Theoretical — Integrated Information Theory (IIT)
 
@@ -271,15 +273,17 @@ A phased research program to validate and refine the framework.
 |:-----|:-------|:-----------|
 | Simulate death cascade | Agent-based neural network model with layer-dependent Φ computation | In silico replication of death surge |
 | Compute HB₀ | Systematic Φ reduction in simulated networks; identify minimum configuration | Theoretical N_min, C_min bounds |
-| Build C_cont calculator | Open-source tool that ingests clinical data (EEG, oncRNA panel) and outputs C_cont | Software package (Python/JS) |
+| Build C_cont calculator | Open-source visualization that accepts hypothetical or published time-series and outputs C_cont | Software package (Python/JS) — not a clinical calculator |
 
-### Phase 3 — Clinical Translation (Years 4–7)
+### Phase 3 — Speculative Research Questions (not a clinical program)
+
+These are open questions for future researchers. They are **not** protocols, diagnostics, or products of this dashboard.
 
 | Task | Method | Deliverable |
 |:-----|:-------|:-----------|
-| Prospective death surge study | Multi-site ICU collaboration; continuous EEG + oncRNA liquid biopsy during end-of-life | First prospective C_cont measurements |
-| HB₀ diagnostic | Develop clinical protocol for estimating proximity to HB₀ | Point-of-care HB₀ assessment tool |
-| Consciousness recovery protocol | Combine OrganEx-type perfusion with HB₀ monitoring | Interventional study protocol |
+| Prospective death-surge observation | Independent multi-site research (if ethically approved); this repo does not run or advise that work | Published measurements others could compare to C_cont |
+| Empirical HB₀ estimate | Research question: can proximity to a theoretical HB₀ be estimated at all? | A paper, not a point-of-care tool |
+| Recoverability models | In-silico combination of perfusion literature with Φ-trajectory models | A model, not an interventional protocol |
 
 ---
 
@@ -295,7 +299,7 @@ Eight critical questions, ordered by scientific priority:
 | **Q4** | Can R(t) be extended beyond the OrganEx 6-hour window? | 🟡 High | L2 | Active research (Yale, multiple groups) |
 | **Q5** | Does Φ_molecular (mutual information in oncRNA networks) predict Φ_neural? | 🟡 High | L2–L3 | Untested hypothesis |
 | **Q6** | Is L1 (quantum coherence) necessary for consciousness, or merely present? | 🟠 Medium | L1 | Debated — Penrose-Hameroff vs. decoherence arguments |
-| **Q7** | Can K(Φ) serve as a clinical consciousness metric superior to PCI? | 🟠 Medium | L2–L5 | Requires Phase 2 computational validation |
+| **Q7** | Could K(Φ) ever be compared with PCI as a *research* consciousness metric? | 🟠 Medium | L2–L5 | Requires Phase 2 computational validation; not a clinical claim |
 | **Q8** | Is Φ_social (L6) a genuine layer of consciousness or an emergent behavioral epiphenomenon? | 🔵 Low | L6 | Philosophical + empirical — hyperscanning studies ongoing |
 
 ---
@@ -338,9 +342,9 @@ Post-mortem:    I(t) = 0      (no information to lose)
 
 2. **Consciousness has latent information** — analogous to latent heat, there exists a quantity of "bound" integrated information that is released during the transition from conscious to non-conscious states.
 
-3. **Recovery interventions should target I(t)** — the goal of consciousness-preserving medicine is to maintain `I(t) ≤ 0` (prevent infotropy from going positive).
+3. **A theoretical recovery model would target I(t)** — in this picture, preserving continuity means keeping `I(t) ≤ 0`. That is a research metaphor, not a treatment goal or medical protocol.
 
-4. **Infotropy is measurable** — given calibrated Φ(t), S(t), M(t), and R(t) functions, infotropy can be computed in real-time from clinical data streams.
+4. **Infotropy is *in principle* computable** — if Φ(t), S(t), M(t), and R(t) were ever calibrated, I(t) could be derived from those time-series. They are not calibrated here; this dashboard does not read clinical data streams.
 
 ### Infotropy and the Second Law
 
