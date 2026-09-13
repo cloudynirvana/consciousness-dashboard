@@ -136,22 +136,31 @@
     #root { position: relative; z-index: 1; }
     #honesty-banner {
       position: relative; z-index: 2;
-      padding: 8px 28px;
+      padding: 10px 28px;
       background: #12081a;
       border-bottom: 1px solid rgba(187, 134, 252, 0.28);
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
+      font-family: ui-monospace, 'IBM Plex Mono', 'SFMono-Regular', Menlo, Consolas, monospace;
+      font-size: 11px;
       color: #a8c4d8;
-      letter-spacing: 0.04em;
-      line-height: 1.6;
+      letter-spacing: 0.02em;
+      line-height: 1.55;
     }
+    #honesty-banner .honesty-kicker {
+      color: #c4b5e8;
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    #honesty-banner .honesty-line + .honesty-line { margin-top: 2px; color: #7a9bb0; }
   </style>
 </head>
 <body>
   <canvas id="particle-canvas"></canvas>
   <div id="honesty-banner" role="note">
-    A research visualization — not a medical device, not clinical guidance, not a determination of death.
-    Project Confluence is separate in-silico oncology research, not a clinical validation of this dashboard.
+    <div class="honesty-kicker">What Is Alive · research visualization</div>
+    <div class="honesty-line">Not a medical device. Not clinical guidance. Not a determination of death.</div>
+    <div class="honesty-line">Project Confluence is separate in-silico oncology research — not a clinical validation of this dashboard.</div>
   </div>
   <div id="root"></div>
 
@@ -1080,6 +1089,9 @@
               </div>
             )}
 
+            {/* ── TAB 4: CONFLUENCE ── */}
+            {tab === 4 && (
+              <div>
                 <Card title="Project Confluence — A Kinship, Not a Clinic" accent={P.gold}>
                   <p style={{
                     fontFamily: "'Cormorant Garamond', serif",
