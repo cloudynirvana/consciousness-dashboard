@@ -134,10 +134,25 @@
       pointer-events: none; z-index: 0; opacity: 0.35;
     }
     #root { position: relative; z-index: 1; }
+    #honesty-banner {
+      position: relative; z-index: 2;
+      padding: 8px 28px;
+      background: #12081a;
+      border-bottom: 1px solid rgba(187, 134, 252, 0.28);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: #a8c4d8;
+      letter-spacing: 0.04em;
+      line-height: 1.6;
+    }
   </style>
 </head>
 <body>
   <canvas id="particle-canvas"></canvas>
+  <div id="honesty-banner" role="note">
+    A research visualization — not a medical device, not clinical guidance, not a determination of death.
+    Project Confluence is separate in-silico oncology research, not a clinical validation of this dashboard.
+  </div>
   <div id="root"></div>
 
   <!-- Ambient particles -->
@@ -661,15 +676,6 @@
                 letterSpacing: "0.2em", animation: "breathe 3s ease-in-out infinite"
               }}>● OPEN QUESTION</div>
             </div>
-          </div>
-
-          <div style={{
-            padding: "8px 28px", background: `${P.purple}0c`,
-            borderBottom: `1px solid ${P.purple}22`,
-            fontSize: 10, color: P.text, letterSpacing: "0.04em", lineHeight: 1.6,
-          }}>
-            A research visualization — not a medical device, not clinical guidance, not a determination of death.
-            Project Confluence is separate in-silico oncology research, not a clinical validation of this dashboard.
           </div>
 
           {/* Tabs */}
