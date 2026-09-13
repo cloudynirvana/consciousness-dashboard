@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>What Is Alive — Consciousness Engineering Dashboard</title>
-  <meta name="description" content="A comprehensive visualization of the layered architecture of aliveness, neural death surges, Human Brain Zero (HB₀), Integrated Information Theory (IIT), and Project Confluence." />
+  <meta name="description" content="A research visualization of the layered architecture of aliveness, neural death surges, Human Brain Zero (HB₀), and IIT Φ-theory. Not a medical device. Not clinical guidance." />
 
   <!-- Open Graph / Social -->
   <meta property="og:title" content="What Is Alive — Consciousness Engineering Dashboard" />
-  <meta property="og:description" content="Interactive visualization of the layered architecture of aliveness: 6 neural layers, death surges, HB₀ threshold, IIT Φ-theory, and Project Confluence." />
+  <meta property="og:description" content="Interactive research visualization of aliveness: 6 neural layers, death surges, HB₀, and IIT Φ-theory. Theoretical — not a medical device." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://repository-images.githubusercontent.com/placeholder" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -134,10 +134,34 @@
       pointer-events: none; z-index: 0; opacity: 0.35;
     }
     #root { position: relative; z-index: 1; }
+    #honesty-banner {
+      position: relative; z-index: 2;
+      padding: 10px 28px;
+      background: #12081a;
+      border-bottom: 1px solid rgba(187, 134, 252, 0.28);
+      font-family: ui-monospace, 'IBM Plex Mono', 'SFMono-Regular', Menlo, Consolas, monospace;
+      font-size: 11px;
+      color: #a8c4d8;
+      letter-spacing: 0.02em;
+      line-height: 1.55;
+    }
+    #honesty-banner .honesty-kicker {
+      color: #c4b5e8;
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    #honesty-banner .honesty-line + .honesty-line { margin-top: 2px; color: #7a9bb0; }
   </style>
 </head>
 <body>
   <canvas id="particle-canvas"></canvas>
+  <div id="honesty-banner" role="note">
+    <div class="honesty-kicker">What Is Alive · research visualization</div>
+    <div class="honesty-line">Not a medical device. Not clinical guidance. Not a determination of death.</div>
+    <div class="honesty-line">Project Confluence is separate in-silico oncology research — not a clinical validation of this dashboard.</div>
+  </div>
   <div id="root"></div>
 
   <!-- Ambient particles -->
@@ -249,7 +273,7 @@
         sublabel: "Structured, coordinated brain wave activity",
         color: P.blue, msec: 300000,
         human: "2–5 min", phi: 0.8,
-        note: "The clinical definition of brain death. But three deeper layers still persist.",
+        note: "What hospital EEG often treats as the end of organized activity. In this stack, three deeper layers still persist — a philosophical claim, not a death determination.",
         mechanism: "Isoelectric transition — cortical spreading depolarization",
       },
       {
@@ -302,8 +326,8 @@
     ];
 
     const CONSCIOUSNESS_SPECTRUM = [
-      { state: "Brain Death", phi: 0.0, color: P.red, zone: "irreversible" },
-      { state: "Deep Coma", phi: 0.15, color: P.red, zone: "irreversible" },
+      { state: "Brain Death", phi: 0.0, color: P.red, zone: "low-Φ model" },
+      { state: "Deep Coma", phi: 0.15, color: P.red, zone: "low-Φ model" },
       { state: "OrganEx Zone", phi: 0.25, color: P.amber, zone: "experimental" },
       { state: "HB₀", phi: 0.35, color: P.purple, zone: "threshold" },
       { state: "Vegetative", phi: 0.5, color: P.blue, zone: "sub-conscious" },
@@ -317,7 +341,7 @@
     const TERMINAL_LUCIDITY = [
       { condition: "Advanced Alzheimer's", recovery: "Full conversational clarity — recognized family members, recalled memories", timing: "Hours before death", evidence: "Nahm et al., 2012; Batthyány, 2023" },
       { condition: "Chronic Schizophrenia", recovery: "Complete cognitive normalization — coherent speech returned", timing: "Days before death", evidence: "Turetskaia 1955; Nahm & Greyson 2009" },
-      { condition: "Massive Stroke Damage", recovery: "Return of speech and voluntary movement", timing: "Hours before death", evidence: "Clinical case series — multiple hospitals" },
+      { condition: "Massive Stroke Damage", recovery: "Return of speech and voluntary movement", timing: "Hours before death", evidence: "Published case series — not a diagnosis here" },
     ];
 
     const HB0_TRAJECTORY = [
@@ -350,8 +374,8 @@
       { oncrna: "HB₀ — minimum viable Φ state", phi: "Φ-vector lower bound", tag: "NEW TARGET", accent: P.purple },
       { oncrna: "Gamma surge pattern (dying EEG)", phi: "Φ₂ Signal Diversity spike", tag: "OBSERVABLE", accent: P.gold },
       { oncrna: "Connectome decay rate (post-mortem)", phi: "K(Φ) temporal derivative", tag: "PHASE 2", accent: P.teal },
-      { oncrna: "Metabolic restoration (OrganEx)", phi: "Φ₁ Metabolic Entropy reversal", tag: "PROTOCOL", accent: P.amber },
-      { oncrna: "Consciousness re-emergence threshold", phi: "Adaptive controller target state", tag: "CLINICAL", accent: P.green },
+      { oncrna: "Metabolic restoration (OrganEx literature)", phi: "Φ₁ Metabolic Entropy reversal", tag: "IN-SILICO", accent: P.amber },
+      { oncrna: "Consciousness re-emergence threshold", phi: "Adaptive controller target state (model)", tag: "THEORETICAL", accent: P.green },
     ];
 
     const THREE_CONDITIONS = [
@@ -405,17 +429,17 @@
         items: [
           "TCGA small-RNA-seq — 32 cancer types",
           "I-SPY 2 trial data — longitudinal blood oncRNA",
-          "Moffitt / Gatenby outreach — adaptive therapy",
+          "Moffitt / Gatenby literature — adaptive therapy models (in silico)",
           "EEG death-surge parameterisation (Φ₅ dynamics)",
-          "HB₀ candidate identification from anesthesia data",
+          "HB₀ candidate identification from published anesthesia data",
         ]
       },
       {
         id: 3, label: "Substrate-Independent Complexity Restoration", timeline: "Post-Phase 2", color: P.purple, status: "CONCEPTUAL",
         items: [
-          "Connectome preservation metric",
+          "Connectome preservation metric (theoretical)",
           "Artificial substrate Φ modelling",
-          "Unified terminal illness protocol",
+          "Unified theoretical model of terminal Φ-collapse — not a treatment protocol",
         ]
       },
     ];
@@ -648,7 +672,7 @@
                   <span style={{ fontSize: 14, color: P.textDim, fontWeight: 400 }}> — in the dying brain?</span>
                 </div>
                 <div style={{ fontSize: 8, color: P.textDim, letterSpacing: "0.3em", marginTop: 4 }}>
-                  NEURAL COMPLEXITY · CONSCIOUSNESS ENGINEERING · PROJECT CONFLUENCE
+                  NEURAL COMPLEXITY · CONSCIOUSNESS ENGINEERING · RESEARCH VISUALIZATION
                 </div>
               </div>
             </div>
@@ -720,13 +744,14 @@
                   ))}
                 </div>
 
-                <Card title="Key Insight for Project Confluence" accent={P.teal}>
+                <Card title="Key Insight — and a Boundary" accent={P.teal}>
                   <p style={{ fontSize: 12, lineHeight: 1.8, color: P.text, margin: 0 }}>
-                    Your framework targets <span style={{ color: P.teal }}>complexity restoration</span> to treat cancer and sustain life.
-                    The aliveness stack tells you what to target: <strong style={{ color: P.gold }}>Layer 6 (connectome)</strong> encodes identity and never truly perishes (unitarity).
-                    <strong style={{ color: P.purple }}> Layer 3 (EEG coherence)</strong> is what medicine calls "death" — but it's the middle of the stack, not the bottom.
-                    HB₀ defines the minimum Φ needed to traverse from any lower layer back to Layer 1.
-                    Complexity restoration is substrate transition engineering.
+                    <span style={{ color: P.teal }}>Project Confluence</span> lives next door: computational oncology, in silico.
+                    It is not a clinical trial of this dashboard, and this dashboard is not a medical instrument.
+                    The aliveness stack is the philosophical question Confluence does not answer for you: <span style={{ color: P.gold }}>which layer do you mean when you say "alive"?</span>
+                    <strong style={{ color: P.gold }}> Layer 6 (connectome)</strong> encodes identity and, if unitarity holds, never truly perishes.
+                    <strong style={{ color: P.purple }}> Layer 3 (EEG coherence)</strong> is what medicine often calls "death" — but in this picture it's the middle of the stack, not the bottom.
+                    HB₀ is the drawn minimum Φ for climbing back toward Layer 1 — a hypothesis, not a determination.
                   </p>
                 </Card>
               </div>
@@ -795,7 +820,7 @@
                     The <span style={{ color: P.gold, fontWeight: 600 }}>Dying-Moment Dream Hypothesis</span> (Frontiers Psychology, 2026) proposes
                     that Layer 1 consciousness does not terminate at cardiac arrest but instead generates one final,
                     maximally-integrated experience. Whether this constitutes sentience is undecided;
-                    that it <span style={{ color: P.purple }}>exceeds waking-state neural integration</span> is empirically established.
+                    that a gamma surge <span style={{ color: P.purple }}>can exceed waking-state power</span> is what the cited papers report — not a diagnosis of a dying person's experience.
                   </p>
                   <div style={{ marginTop: 12, display: "flex", gap: 8, flexWrap: "wrap" }}>
                     <Tag label="BORJIGIN 2013" accent={P.gold} />
@@ -916,9 +941,9 @@
 
                 <Card title="Terminal Lucidity — Traversing HB₀ From Below?" accent={P.green}>
                   <p style={{ fontSize: 12, lineHeight: 1.8, color: P.text, marginBottom: 14 }}>
-                    Patients with severe neurodegeneration who recover full cognitive clarity hours before death
-                    provide critical evidence: <span style={{ color: P.green, fontWeight: 600 }}>the capacity for high-Φ consciousness is not destroyed</span> even
-                    when the biological substrate appears irreparably compromised.
+                    Published cases of people with severe neurodegeneration who recover unexpected clarity hours before death
+                    invite a hypothesis: <span style={{ color: P.green, fontWeight: 600 }}>the capacity for high-Φ consciousness may not be annihilated</span> even
+                    when the biological substrate appears irreparably compromised. This dashboard does not diagnose those cases.
                   </p>
                   {TERMINAL_LUCIDITY.map((tl, i) => (
                     <div key={i} className="hover-row" style={{
@@ -996,8 +1021,8 @@
 
                 <Card title="The 5-Dimensional Φ-Vector" accent={P.purple}>
                   <p style={{ fontSize: 11, lineHeight: 1.7, color: P.text, marginBottom: 14 }}>
-                    Project Confluence extends scalar Φ into a <span style={{ color: P.purple, fontWeight: 600 }}>5-dimensional vector</span>,
-                    each dimension grounded in a measurable biological observable.
+                    In this visualization — conceptually kin to Project Confluence's <em>in-silico</em> oncology work — scalar Φ is extended into a <span style={{ color: P.purple, fontWeight: 600 }}>5-dimensional vector</span>,
+                    each dimension a proposed biological observable. Confluence does not clinically validate these axes.
                   </p>
                   {PHI_VECTOR_DIMS.map((d, i) => (
                     <div key={i} className="hover-row" style={{
@@ -1058,21 +1083,24 @@
                     The brain develops only through continuous information supply. C<sub>cont</sub> depends not only on internal Φ
                     but on the organism's access to an information-rich environment. Terminal illness reduces both:
                     internal complexity collapses <em>and</em> the information environment narrows.
-                    <span style={{ color: P.gold }}> Therapeutic protocols should address both axes.</span>
+                    <span style={{ color: P.gold }}> A complete theory of aliveness would have to address both axes — as philosophy, not as a treatment order.</span>
                   </p>
                 </Card>
               </div>
             )}
 
-                <Card title="Project Confluence — Unified Terminal Framework" accent={P.gold}>
+            {/* ── TAB 4: CONFLUENCE ── */}
+            {tab === 4 && (
+              <div>
+                <Card title="Project Confluence — A Kinship, Not a Clinic" accent={P.gold}>
                   <p style={{
                     fontFamily: "'Cormorant Garamond', serif",
                     fontSize: 16, lineHeight: 1.9, color: P.text, margin: 0, fontStyle: "italic"
                   }}>
-                    Three independent lines of research converge: all terminal conditions — cancer, aging,
-                    and biological host death — are instances of the same underlying problem:
-                    <span style={{ color: P.gold }}> the degradation of an organism's Φ-trajectory below its minimum
-                    viable complexity threshold.</span>
+                    Confluence is separate computational oncology research (in silico). Here we only borrow the question:
+                    what if cancer, aging, and biological host death were instances of the same underlying picture —
+                    <span style={{ color: P.gold }}> a Φ-trajectory falling below a drawn minimum-viable-complexity threshold?</span>
+                    That is a visualization thesis, not a diagnosis and not a validation of Confluence.
                   </p>
                 </Card>
 
@@ -1081,35 +1109,38 @@
                   const calculatedCcont = parseFloat((phiScale * neural * molecular * 10 + perfusion * 5).toFixed(2));
                   const calculatedCoherence = Math.round((molecular * 0.3 + neural * 0.3 + phiScale * 0.25 + perfusion * 0.15) * 100);
                   
-                  let stabilityStatus = "CRITICAL ANNIHILATION";
+                  let stabilityStatus = "MODEL: CATASTROPHIC COLLAPSE";
                   let stabilityColor = P.red;
                   let resilienceRating = "F";
                   
                   if (calculatedCoherence >= 85) {
-                    stabilityStatus = "HOLISTIC STABILITY";
+                    stabilityStatus = "MODEL: HOLISTIC STABILITY";
                     stabilityColor = P.green;
                     resilienceRating = "S";
                   } else if (calculatedCoherence >= 70) {
-                    stabilityStatus = "STABLE CONTINUITY";
+                    stabilityStatus = "MODEL: STABLE CONTINUITY";
                     stabilityColor = P.teal;
                     resilienceRating = "A";
                   } else if (calculatedCoherence >= 50) {
-                    stabilityStatus = "COMPLEXITY EROSION";
+                    stabilityStatus = "MODEL: COMPLEXITY EROSION";
                     stabilityColor = P.amber;
                     resilienceRating = "B";
                   } else if (calculatedCoherence >= 35) {
-                    stabilityStatus = "THRESHOLD BOUNDARY (HB₀)";
+                    stabilityStatus = "MODEL: HB₀ BOUNDARY";
                     stabilityColor = P.purple;
                     resilienceRating = "C";
                   }
 
                   return (
-                    <Card title="Holistic Sentience Sustainability Protocol Planner" accent={P.teal}>
+                    <Card title="Holistic Sentience Sustainability — Thought Experiment" accent={P.teal}>
+                      <p style={{ fontSize: 11, lineHeight: 1.7, color: P.text, margin: "0 0 14px" }}>
+                        Move the sliders. Watch C<sub>cont</sub> breathe. This is an in-browser toy of the integral — not a biometric, not a protocol, not a patient.
+                      </p>
                       <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 24, margin: "10px 0 20px" }} className="stat-grid-2">
                         {/* Sliders Column */}
                         <div>
                           <div style={{ fontSize: 9, color: P.textDim, letterSpacing: "0.12em", marginBottom: 12 }}>
-                            HOLISTIC SUSTAINABILITY SLIDERS
+                            THOUGHT-EXPERIMENT SLIDERS
                           </div>
                           
                           {/* Molecular Slider */}
@@ -1157,7 +1188,7 @@
                           {/* Perfusion Slider */}
                           <div style={{ marginBottom: 14 }}>
                             <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, marginBottom: 4 }}>
-                              <span style={{ color: P.textBright, fontWeight: 600 }}>🔄 OrganEx Resuscitation (R)</span>
+                              <span style={{ color: P.textBright, fontWeight: 600 }}>🔄 Recoverability R (OrganEx-inspired)</span>
                               <span style={{ color: P.amber, fontFamily: "'IBM Plex Mono', monospace" }}>{(perfusion * 100).toFixed(0)}%</span>
                             </div>
                             <input 
@@ -1183,7 +1214,7 @@
                           
                           <div>
                             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
-                              <span style={{ fontSize: 8, color: P.textDim, letterSpacing: "0.2em" }}>BIOMETRIC ANALYZER</span>
+                              <span style={{ fontSize: 8, color: P.textDim, letterSpacing: "0.2em" }}>IN-SILICO READOUT</span>
                               <span style={{ 
                                 fontSize: 8, color: stabilityColor, background: `${stabilityColor}15`, 
                                 padding: "2px 6px", borderRadius: 2, fontWeight: 700, letterSpacing: "0.1em" 
@@ -1196,7 +1227,7 @@
                                 {calculatedCcont}
                               </div>
                               <div style={{ fontSize: 8, color: calculatedCcont >= 3.5 ? P.green : P.red }}>
-                                {calculatedCcont >= 3.5 ? "✓ SENTIENCE COHERENT" : "⚠ IRREVERSIBLE DISSOCIATION"}
+                                {calculatedCcont >= 3.5 ? "✓ MODEL: SENTIENCE COHERENT" : "⚠ MODEL: Φ-COLLAPSE ZONE"}
                               </div>
                             </div>
                           </div>
@@ -1221,7 +1252,7 @@
                       {/* Intervention Advisory Checklist */}
                       <div style={{ borderTop: `1px solid ${P.teal}20`, paddingTop: 14 }}>
                         <div style={{ fontSize: 9, color: P.teal, letterSpacing: "0.25em", marginBottom: 10 }}>
-                          HOLISTIC STABILIZATION & TREATMENTS CHECKLIST
+                          IN-SILICO STABILIZATION — WHAT THE MODEL SAYS (NOT ORDERS)
                         </div>
                         
                         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }} className="stat-grid-2">
@@ -1237,8 +1268,8 @@
                             </div>
                             <p style={{ fontSize: 9, color: P.textDim, marginTop: 4, lineHeight: 1.5 }}>
                               {molecular < 0.5 
-                                ? "⚠ Critical: Molecular complexity collapse. Immediately initiate targeted oncRNA expression sequencing to reverse localized tumor/tissue chaos."
-                                : "✓ Stable: High oncRNA expression diversity. Maintain microenvironment buffering and transcription complexity."
+                                ? "⚠ Thought experiment: molecular complexity is collapsing. The model treats M(t) as the first axis to restore — a visualization, not a treatment order."
+                                : "✓ In this slider set: oncRNA-like diversity is high. The model holds M(t) as buffered."
                               }
                             </p>
                           </div>
@@ -1255,8 +1286,8 @@
                             </div>
                             <p style={{ fontSize: 9, color: P.textDim, marginTop: 4, lineHeight: 1.5 }}>
                               {neural < 0.5 
-                                ? "⚠ Critical: Gamma oscillatory fragmentation detected. Deploy non-invasive focal electrical or acoustic neuromodulation to coordinate TPO junction."
-                                : "✓ Stable: Synchronous gamma bands intact. Global neuronal workspace connectivity remains active."
+                                ? "⚠ Thought experiment: gamma coherence is fragmenting. The model asks what a TPO-binding surge would look like — it does not tell anyone to stimulate a brain."
+                                : "✓ In this slider set: synchronous gamma holds. The model treats the workspace as bound."
                               }
                             </p>
                           </div>
@@ -1273,8 +1304,8 @@
                             </div>
                             <p style={{ fontSize: 9, color: P.textDim, marginTop: 4, lineHeight: 1.5 }}>
                               {phiScale < 0.35 
-                                ? "⚠ EMERGENCY: Causal integration below HB₀ threshold (0.35). Sentience is fading. Immediate complexity stimulation required."
-                                : "✓ Stable: Φ remains safely above the HB₀ threshold. Irreducible cognitive kernel of sentience is self-sustaining."
+                                ? "⚠ Below HB₀ in this model (Φ_scale < 0.35). The thought experiment marks the fading of the irreducible kernel — a drawn threshold, not a diagnosis."
+                                : "✓ In this slider set: Φ sits above the drawn HB₀ line. The kernel is self-sustaining — in the picture, not in a patient."
                               }
                             </p>
                           </div>
@@ -1287,12 +1318,12 @@
                           }}>
                             <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
                               <span style={{ fontSize: 10, color: perfusion < 0.5 ? P.red : P.green }}>●</span>
-                              <span style={{ fontSize: 11, color: P.textBright, fontWeight: 600 }}>OrganEx Resuscitability</span>
+                              <span style={{ fontSize: 11, color: P.textBright, fontWeight: 600 }}>Recoverability (R)</span>
                             </div>
                             <p style={{ fontSize: 9, color: P.textDim, marginTop: 4, lineHeight: 1.5 }}>
                               {perfusion < 0.5 
-                                ? "⚠ Warning: Ischemic recovery window narrowing. Increase perfusion solutions and synthetic metabolic substrates to prevent cell lysis."
-                                : "✓ Stable: Excellent metabolic recovery. Cellular scaffolds are highly receptive to perfusion and restoration triggers."
+                                ? "⚠ Thought experiment: the recoverability term is falling. OrganEx is cited as literature, not as a button you should press."
+                                : "✓ In this slider set: R is high. The model treats the scaffold as still receptive to restoration — on paper."
                               }
                             </p>
                           </div>
@@ -1362,7 +1393,7 @@
                   </div>
                 </Card>
 
-                <Card title="Improvement Protocol — Phased Roadmap" accent={P.purple}>
+                <Card title="Improvement Roadmap — Research Phases (Conceptual)" accent={P.purple}>
                   {PHASES.map((phase, pi) => (
                     <div key={pi} style={{ marginBottom: 10 }}>
                       <div
@@ -1454,10 +1485,10 @@
                       fontFamily: "'Cormorant Garamond', serif",
                       fontSize: 15, lineHeight: 1.8, color: P.text, margin: 0, fontStyle: "italic"
                     }}>
-                      Every therapeutic intervention — cancer treatment, anti-aging, post-mortem substrate transition —
-                      is an attempt to extend the area under the Φ(t) curve above the HB₀ line.
-                      The organism's sentience is sustained when, and only when, the Consciousness Continuity Integral
-                      remains positive.
+                      In this picture, every attempt to keep a system complex — treating cancer, slowing aging, imagining a post-mortem substrate —
+                      is an attempt to extend the area under the Φ(t) curve above the drawn HB₀ line.
+                      The thesis is philosophical: sentience, so defined, lasts while C<sub>cont</sub> stays positive.
+                      It is not a rule for a ward, a code, or a death certificate.
                     </p>
                   </div>
                 </Card>
@@ -1473,10 +1504,10 @@
             maxWidth: 940, margin: "24px auto 0",
           }}>
             <div style={{ fontSize: 8, color: P.textDim, letterSpacing: "0.15em" }}>
-              PROJECT CONFLUENCE · cloudynirvana · 2026
+              RESEARCH VISUALIZATION · NOT A MEDICAL DEVICE · 2026
             </div>
             <div style={{ fontSize: 8, color: P.textDim, letterSpacing: "0.15em" }}>
-              IIT · BORJIGIN · KOCH · FRONTIERS · ARC INSTITUTE
+              IIT · BORJIGIN · KOCH · CONFLUENCE (IN SILICO, SEPARATE)
             </div>
           </div>
 
